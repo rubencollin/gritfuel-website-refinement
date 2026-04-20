@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" width="32" height="32" role="img" aria-label="Strategist">
+<circle cx="16" cy="11" r="4" fill="#FC4E2B"/>
+<path d="M 6 28 C 6 20, 10 17, 16 17 C 22 17, 26 20, 26 28 L 6 28 Z" fill="none" stroke="#3C3C3C" stroke-width="1.75" stroke-linejoin="round"/>
+</svg>

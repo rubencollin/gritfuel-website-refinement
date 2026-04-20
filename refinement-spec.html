@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>gritfuel.works · refinement spec (3-hr pass)</title>
+<link rel="stylesheet" href="assets/shared.css">
+<style>
+  body { background: var(--paper); }
+
+  /* Dev bar */
+  .micro-bar { background: var(--ink); color: var(--paper); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; padding: 10px 24px; text-align: center; }
+  .micro-bar .lime { color: var(--lime); }
+
+  /* Exec summary */
+  .exec {
+    max-width: 1120px; margin: 48px auto; padding: 0 32px;
+  }
+  .exec h1 {
+    font-family: var(--f-display); font-weight: 900;
+    font-size: clamp(36px, 4.5vw, 56px); line-height: 1.02; letter-spacing: -0.025em;
+    margin: 0 0 16px;
+  }
+  .exec .kicker { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gray); }
+  .exec .lead { max-width: 60ch; color: #2A2A2A; }
+
+  .budget {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    margin: 40px 0;
+  }
+  .budget .cell {
+    background: var(--white); border: 1px solid var(--gray-200);
+    border-radius: 12px; padding: 20px;
+  }
+  .budget .cell .lbl { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gray); }
+  .budget .cell .val { font-family: var(--f-display); font-weight: 900; font-size: 32px; line-height: 1; margin-top: 8px; }
+  .budget .cell .sub { font-size: 13px; color: var(--gray); margin-top: 6px; }
+  .budget .cell.primary { background: var(--lime); border-color: var(--lime); }
+
+  /* Section headings in spec */
+  .spec-section { max-width: 1120px; margin: 64px auto; padding: 0 32px; }
+  .spec-section h2 {
+    font-family: var(--f-display); font-weight: 800;
+    font-size: 32px; letter-spacing: -0.02em; margin: 0 0 8px;
+  }
+  .spec-section h2::before {
+    content: attr(data-num);
+    font-family: var(--f-mono); font-size: 12px;
+    color: var(--orange); letter-spacing: 0.18em;
+    display: block; margin-bottom: 8px;
+  }
+  .spec-section .sdesc { color: var(--gray); max-width: 58ch; margin-bottom: 32px; }
+
+  /* Change block — current → proposed */
+  .change {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr 80px;
+    gap: 16px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    align-items: start;
+  }
+  .change .where {
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray);
+    padding-top: 4px;
+  }
+  .change .before, .change .after {
+    font-size: 14.5px; line-height: 1.5;
+    padding: 10px 14px; border-radius: 6px;
+  }
+  .change .before {
+    background: #FCEEEB; color: #8E2A16;
+    border-left: 3px solid #C13D1F;
+  }
+  .change .before::before { content: "CURRENT · "; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em; opacity: 0.7; }
+  .change .after {
+    background: #F1F8D8; color: #3F4A14;
+    border-left: 3px solid var(--lime);
+  }
+  .change .after::before { content: "PROPOSED · "; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em; opacity: 0.7; }
+  .change .time {
+    font-family: var(--f-mono); font-size: 11px;
+    letter-spacing: 0.1em; color: var(--gray);
+    padding-top: 4px; text-align: right;
+  }
+
+  /* Image note */
+  .image-note {
+    display: grid; grid-template-columns: 180px 1fr 80px; gap: 16px;
+    padding: 20px 24px; background: var(--white);
+    border: 1px dashed var(--gray); border-radius: 12px;
+    margin-bottom: 12px; align-items: start;
+  }
+  .image-note .where { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray); padding-top: 4px; }
+  .image-note .action { font-size: 14.5px; line-height: 1.5; }
+  .image-note .action strong { background: var(--lime); padding: 0 4px; }
+  .image-note .time { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--gray); text-align: right; padding-top: 4px; }
+
+  /* Plan cards preview */
+  .plans-preview {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    margin-top: 40px;
+  }
+  .plan-card {
+    background: var(--white); border: 1px solid var(--gray-200);
+    border-radius: 16px; padding: 32px 28px;
+    position: relative;
+  }
+  .plan-card.featured {
+    border: 2px solid var(--ink);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+  }
+  .plan-card .name {
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.24em;
+    text-transform: uppercase; color: var(--gray);
+  }
+  .plan-card .head {
+    font-family: var(--f-display); font-weight: 900;
+    font-size: 30px; line-height: 1.05; letter-spacing: -0.02em;
+    margin: 12px 0 16px;
+  }
+  .plan-card .sub { font-size: 14px; color: var(--gray); font-style: italic; margin-bottom: 20px; }
+  .plan-card .capacity {
+    background: #F6FAD4; border-radius: 10px; padding: 12px 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; font-weight: 500; margin-bottom: 16px;
+  }
+  .plan-card .capacity strong { font-size: 16px; }
+  .plan-card .time-row {
+    background: var(--gray-100); border-radius: 10px; padding: 14px 16px;
+    margin-bottom: 24px; font-size: 14px;
+  }
+  .plan-card .time-row .line { display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .plan-card .time-row .line:last-child { margin-bottom: 0; }
+  .plan-card .time-row .line .lbl-sml { color: var(--gray); font-size: 12px; }
+
+  .plan-card .seg {
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gray);
+    margin: 20px 0 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .plan-card .seg::before { content: "●"; color: var(--charcoal); font-size: 8px; }
+  .plan-card .seg.credits::before { color: var(--lime); }
+  .plan-card .seg.spec::before { color: var(--orange); }
+
+  .plan-card ul { list-style: none; padding: 0; margin: 0 0 16px; }
+  .plan-card ul li {
+    font-size: 13.5px; line-height: 1.5;
+    padding: 6px 0 6px 24px; position: relative;
+  }
+  .plan-card ul li::before {
+    content: "✓"; color: var(--ink); font-weight: 700;
+    position: absolute; left: 0;
+  }
+  .plan-card ul.credits li::before { color: #78892A; }
+  .plan-card ul.spec li::before { color: var(--orange); }
+
+  .plan-card .menu-note {
+    background: var(--gray-100); border-radius: 8px;
+    padding: 12px 14px; font-size: 12.5px; color: var(--gray);
+    margin: 12px 0 20px;
+  }
+  .plan-card .menu-note a { color: #78892A; font-weight: 600; display: inline-block; margin-top: 4px; }
+
+  .plan-card .tagline { font-weight: 700; font-size: 14.5px; margin: 20px 0 16px; }
+  .plan-card .cta {
+    display: block; background: var(--ink); color: var(--white);
+    text-align: center; padding: 16px; border-radius: 8px;
+    font-weight: 600; font-size: 14.5px;
+  }
+  .plan-card.featured .cta { background: var(--lime); color: var(--ink); }
+
+  .plan-change-note {
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: #C13D1F;
+    background: #FCEEEB; padding: 3px 6px; border-radius: 3px;
+    display: inline-block; margin-left: 4px;
+    font-weight: 500;
+  }
+
+  /* Time stamp on changes */
+  .label-changed {
+    background: var(--lime); color: var(--ink);
+    padding: 1px 4px; border-radius: 3px;
+    font-weight: 700;
+  }
+
+  /* Final bar */
+  .final {
+    background: var(--ink); color: var(--white);
+    padding: 48px 32px; margin-top: 80px;
+  }
+  .final .inner { max-width: 1120px; margin: 0 auto; }
+  .final h2 { color: var(--white); font-size: 28px; margin: 0 0 12px; }
+  .final p { color: rgba(255,255,255,0.75); max-width: 60ch; }
+  .final ol { color: rgba(255,255,255,0.85); font-size: 14.5px; line-height: 1.8; padding-left: 20px; }
+  .final ol li strong { color: var(--lime); }
+
+  @media (max-width: 900px) {
+    .budget { grid-template-columns: repeat(2, 1fr); }
+    .plans-preview { grid-template-columns: 1fr; }
+    .change { grid-template-columns: 1fr; }
+    .change .where, .change .time { font-size: 10px; padding: 0; }
+    .image-note { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="micro-bar">
+  Refinement spec · <span class="lime">gritfuel.works</span> · 3-hour developer pass · v1
+</div>
+
+<!-- ================= EXEC SUMMARY ================= -->
+<div class="exec">
+  <span class="kicker">One-page scope document · hand this to the dev</span>
+  <h1>gritfuel.works<br>refinement, not rebuild.</h1>
+  <p class="lead">
+    Twelve in-place copy edits, five terminology swaps across the three plan cards,
+    three image replacements, one section-label retitle. No layout changes.
+    No new sections. No CMS structure touched.
+    The statement-background concept is parked for a future pass.
+  </p>
+
+  <div class="budget">
+    <div class="cell">
+      <div class="lbl">Copy edits</div>
+      <div class="val">12</div>
+      <div class="sub">Hero + 6 sections · ~55 min</div>
+    </div>
+    <div class="cell">
+      <div class="lbl">Plan-card tweaks</div>
+      <div class="val">9</div>
+      <div class="sub">Terminology + labels · ~40 min</div>
+    </div>
+    <div class="cell">
+      <div class="lbl">Image swaps</div>
+      <div class="val">3</div>
+      <div class="sub">Step 03 · gear · logo audit · ~60 min</div>
+    </div>
+    <div class="cell primary">
+      <div class="lbl">Total budget</div>
+      <div class="val">2h 35m</div>
+      <div class="sub">~25 min headroom for QA</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= SECTION 1 — COPY EDITS ================= -->
+<section class="spec-section">
+  <h2 data-num="01 · COPY EDITS">Twelve in-place text swaps</h2>
+  <p class="sdesc">Location references follow the live-site scroll order. Each edit is independent — the dev can pick them up in any sequence.</p>
+
+  <div class="change">
+    <div class="where">Hero · H1</div>
+    <div class="before">The Embedded Growth Engine for Start-ups and Scale-ups</div>
+    <div class="after">The growth operating system for founders ready to scale.</div>
+    <div class="time">5 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Hero · subline</div>
+    <div class="before">Not an agency. Not an internal hire. A structured growth operating partner.</div>
+    <div class="after">One monthly cadence. One score. Senior operators embedded in your business — backed by a system that learns your numbers and compounds what works.</div>
+    <div class="time">5 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Hero · CTA buttons</div>
+    <div class="before">Start the Conversation · Choose Your Engine</div>
+    <div class="after">Book a discovery call · See the plans</div>
+    <div class="time">3 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Operating-model band · closing line</div>
+    <div class="before">This isn't campaign management. It's a growth operating model.</div>
+    <div class="after">This isn't campaign management. It's a growth operating model. One Playbook. One Dashboard. One Score that gets smarter every month.</div>
+    <div class="time">3 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Tab 1 label</div>
+    <div class="before">ONE MONTHLY PLAN</div>
+    <div class="after">ONE MONTHLY PLAYBOOK</div>
+    <div class="time">2 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Tab 2 label</div>
+    <div class="before">A SENIOR EMBEDDED TEAM</div>
+    <div class="after">SENIOR OPERATORS, NOT JUNIORS</div>
+    <div class="time">2 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Tab 3 label</div>
+    <div class="before">ZERO FLUFF</div>
+    <div class="after">ZERO FLUFF. ONE SCORE.</div>
+    <div class="time">2 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Lime band · sub-headline</div>
+    <div class="before">Learn &gt; Refine &gt; Scale &gt; Repeat.</div>
+    <div class="after">Learn → Refine → Scale → Compound.</div>
+    <div class="time">2 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Lime 01/02/03 cards</div>
+    <div class="before">01 Signal over noise · 02 Structure over chaos · 03 Compounding over sprints</div>
+    <div class="after">01 One score, not ten dashboards · 02 One Playbook, signed off monthly · 03 What works rolls forward. What doesn't gets archived.</div>
+    <div class="time">8 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">How It Works · step 02 title</div>
+    <div class="before">Build the Growth Playbook</div>
+    <div class="after">Sign off the Monthly Playbook</div>
+    <div class="time">3 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Closing CTA band</div>
+    <div class="before">Ready to build a real growth engine?</div>
+    <div class="after">Ready to run the cadence?</div>
+    <div class="time">3 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Footer · under logo</div>
+    <div class="before">(no tagline currently under the logo)</div>
+    <div class="after">Growth that compounds. Visibly.</div>
+    <div class="time">5 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Team section · role titles</div>
+    <div class="before">Any "Brand Strategist" role labels under the four team photos</div>
+    <div class="after">Replace with "Strategist" (generic — per positioning, the role is not brand-specific)</div>
+    <div class="time">5 min</div>
+  </div>
+</section>
+
+<!-- ================= SECTION 2 — PLAN CARDS ================= -->
+<section class="spec-section">
+  <h2 data-num="02 · PLAN CARDS">Terminology tightening + label retitles</h2>
+  <p class="sdesc">No pricing change. No layout change. All three cards already show the right structure (system + credits + specialists). These are copy-level terminology swaps — plus the 153-item menu consolidation, which trims ~30 words of repeated text from the row.</p>
+
+  <div class="change">
+    <div class="where">All 3 cards · section label</div>
+    <div class="before">ALWAYS INCLUDED</div>
+    <div class="after">THE SYSTEM · ALWAYS INCLUDED</div>
+    <div class="time">3 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">All 3 cards · section label</div>
+    <div class="before">DIRECT SPECIALIST INVOLVEMENT</div>
+    <div class="after">SPECIALISTS ON THE BENCH</div>
+    <div class="time">3 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Core feature list · line 1</div>
+    <div class="before">Monthly Growth Playbook</div>
+    <div class="after">Monthly Playbook</div>
+    <div class="time">2 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Core feature list · line 3</div>
+    <div class="before">Dedicated lead strategist</div>
+    <div class="after">Dedicated Strategist</div>
+    <div class="time">2 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Core feature list · line 4</div>
+    <div class="before">Compounding growth engine</div>
+    <div class="after">Compound Score</div>
+    <div class="time">2 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Core feature list · line 5</div>
+    <div class="before">Ongoing brand &amp; messaging guidance</div>
+    <div class="after">Ongoing brand &amp; messaging input</div>
+    <div class="time">2 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Core feature list · line 6</div>
+    <div class="before">Specialist input via your lead strategist</div>
+    <div class="after">Specialist input routed by your Strategist</div>
+    <div class="time">2 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Growth "Everything in Core, plus"</div>
+    <div class="before">Fractional CMO oversight</div>
+    <div class="after">CMO-level oversight from your Strategist</div>
+    <div class="time">3 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">Core / Growth · credits rows</div>
+    <div class="before">…agreed in your monthly playbook · …directed by your monthly playbook</div>
+    <div class="after">…agreed in your Playbook · …directed by your Playbook</div>
+    <div class="time">3 min</div>
+  </div>
+
+  <div class="change">
+    <div class="where">All 3 cards · 153-item line</div>
+    <div class="before">Long paragraph appearing twice per card ("Credits unlock any service from our full 153-item menu — including paid media, brand identity, SEO, web builds, and more…")</div>
+    <div class="after">One-line condensed: "Credits unlock any service from the 153-item ALC Menu." + single "Explore the menu →" link per card.</div>
+    <div class="time">15 min</div>
+  </div>
+</section>
+
+<!-- ================= SECTION 3 — RENDERED PLAN CARDS ================= -->
+<section class="spec-section">
+  <h2 data-num="03 · PREVIEW">What the refined plan row looks like</h2>
+  <p class="sdesc">All terminology refinements applied. Existing layout preserved. Lime-highlighted items are the changed strings.</p>
+
+  <div class="plans-preview">
+    <!-- CORE -->
+    <div class="plan-card">
+      <span class="name">CORE</span>
+      <h3 class="head">Clarity.<br>Traction.<br>Control.</h3>
+      <p class="sub">For organisations that need disciplined focus.</p>
+
+      <div class="capacity">
+        <span>Monthly credit capacity</span>
+        <strong>70 credits</strong>
+      </div>
+
+      <div class="time-row">
+        <div class="line"><span>Monthly strategy session<br><span class="lbl-sml">1× per month</span></span><strong>60 min</strong></div>
+        <div class="line"><span>On-demand support<br><span class="lbl-sml">Use anytime — book via your Strategist</span></span><strong>1.5 hrs</strong></div>
+      </div>
+
+      <div class="seg"><span class="label-changed">THE SYSTEM · ALWAYS INCLUDED</span></div>
+      <ul>
+        <li><span class="label-changed">Monthly Playbook</span></li>
+        <li>Live growth dashboard</li>
+        <li><span class="label-changed">Dedicated Strategist</span></li>
+        <li><span class="label-changed">Compound Score</span></li>
+        <li><span class="label-changed">Ongoing brand &amp; messaging input</span></li>
+        <li><span class="label-changed">Specialist input routed by your Strategist</span></li>
+      </ul>
+
+      <div class="seg credits">YOUR CREDITS FUND</div>
+      <ul class="credits">
+        <li>Priority channel execution <em style="color:var(--gray);font-style:normal;">— 1–2 channels, agreed in your <span class="label-changed">Playbook</span></em></li>
+        <li>Discovery &amp; audit work</li>
+        <li>Brand &amp; content deliverables</li>
+      </ul>
+
+      <div class="menu-note">
+        <span class="label-changed">Credits unlock any service from the 153-item ALC Menu.</span>
+        <br><a href="#">Explore the menu →</a>
+      </div>
+
+      <div class="tagline">Establish commercial momentum with precision.</div>
+      <a href="#" class="cta">Let's Talk Core</a>
+    </div>
+
+    <!-- GROWTH (FEATURED) -->
+    <div class="plan-card featured">
+      <span class="name">GROWTH · most common</span>
+      <h3 class="head">Repeatability.<br>Optimisation.<br>Expansion.</h3>
+      <p class="sub">For teams building a scalable engine.</p>
+
+      <div class="capacity">
+        <span>Monthly credit capacity</span>
+        <strong>110 credits</strong>
+      </div>
+
+      <div class="time-row">
+        <div class="line"><span>Bi-weekly alignment<br><span class="lbl-sml">2× per month</span></span><strong>60 min each</strong></div>
+        <div class="line"><span>On-demand support<br><span class="lbl-sml">Use anytime — book via your Strategist</span></span><strong>3 hrs</strong></div>
+      </div>
+
+      <div class="seg"><span class="label-changed">THE SYSTEM · EVERYTHING IN CORE, PLUS</span></div>
+      <ul>
+        <li><span class="label-changed">CMO-level oversight from your Strategist</span></li>
+      </ul>
+
+      <div class="seg credits">YOUR CREDITS FUND</div>
+      <ul class="credits">
+        <li>Structured growth experiments</li>
+        <li>Multi-channel orchestration <em style="color:var(--gray);font-style:normal;">— 3+ channels, directed by your <span class="label-changed">Playbook</span></em></li>
+        <li>Creative production &amp; conversion optimisation</li>
+      </ul>
+
+      <div class="menu-note">
+        <span class="label-changed">Credits unlock any service from the 153-item ALC Menu.</span>
+        <br><a href="#">Explore the menu →</a>
+      </div>
+
+      <div class="seg spec"><span class="label-changed">SPECIALISTS ON THE BENCH</span></div>
+      <ul class="spec">
+        <li>Senior brand &amp; strategy specialists</li>
+        <li>Performance marketing specialists</li>
+      </ul>
+
+      <div class="tagline">Turn traction into predictable performance.</div>
+      <a href="#" class="cta">Let's Talk Growth</a>
+    </div>
+
+    <!-- PERFORMANCE -->
+    <div class="plan-card">
+      <span class="name">PERFORMANCE</span>
+      <h3 class="head">Acceleration.<br>Market Expansion.<br>Efficiency at Scale.</h3>
+      <p class="sub">For organisations scaling aggressively.</p>
+
+      <div class="capacity">
+        <span>Monthly credit capacity</span>
+        <strong>180 credits</strong>
+      </div>
+
+      <div class="time-row">
+        <div class="line"><span>Weekly growth review<br><span class="lbl-sml">4× per month</span></span><strong>60 min each</strong></div>
+        <div class="line"><span>On-demand support<br><span class="lbl-sml">Use anytime — book via your Strategist</span></span><strong>6 hrs</strong></div>
+      </div>
+
+      <div class="seg"><span class="label-changed">THE SYSTEM · EVERYTHING IN GROWTH, PLUS</span></div>
+      <ul>
+        <li>Priority account access &amp; senior escalation</li>
+      </ul>
+
+      <div class="seg credits">YOUR CREDITS FUND</div>
+      <ul class="credits">
+        <li>Advanced testing architecture</li>
+        <li>Forecasting &amp; growth modelling</li>
+        <li>Full-funnel campaigns &amp; multi-market rollout</li>
+      </ul>
+
+      <div class="menu-note">
+        <span class="label-changed">Credits unlock any service from the 153-item ALC Menu.</span>
+        <br><a href="#">Explore the menu →</a>
+      </div>
+
+      <div class="seg spec"><span class="label-changed">SPECIALISTS ON THE BENCH</span></div>
+      <ul class="spec">
+        <li>Senior brand &amp; strategy specialists</li>
+        <li>Performance marketing specialists</li>
+        <li>Events &amp; activation specialists</li>
+      </ul>
+
+      <div class="tagline">Scale revenue with control and confidence.</div>
+      <a href="#" class="cta">Let's Talk Performance</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SECTION 4 — IMAGE SWAPS ================= -->
+<section class="spec-section">
+  <h2 data-num="04 · IMAGE SWAPS">Three replacements + one audit</h2>
+  <p class="sdesc">Keep the hero video. Keep the dashboard HUD (step 02). Keep the team photos. Keep tab-toggle imagery. Only the items below change.</p>
+
+  <div class="image-note">
+    <div class="where">"How It Works" · step 03</div>
+    <div class="action">Current orange-arrow illustration → <strong>compound stair-step / upward score</strong> visual. Keep the numbered "03" mark. Match line-weight of the step-02 dashboard HUD.</div>
+    <div class="time">20 min</div>
+  </div>
+
+  <div class="image-note">
+    <div class="where">"Where We Create Impact" band (lime)</div>
+    <div class="action">Gear / cog illustration → <strong>dashboard-tile cluster</strong> (small grid of KPI tiles). The OS framing contradicts the mechanical-gear metaphor. Keep same proportions in layout.</div>
+    <div class="time">20 min</div>
+  </div>
+
+  <div class="image-note">
+    <div class="where">"Trusted by bold brands" logo bar</div>
+    <div class="action">Audit pass. <strong>Drop any logo where the engagement has ended</strong> or the brand no longer represents the current work. No new logos added in this pass — just pruning.</div>
+    <div class="time">10 min</div>
+  </div>
+
+  <div class="image-note">
+    <div class="where">Nav footer link</div>
+    <div class="action">"Services &amp; Plans" → <strong>"Plans"</strong>. Small consistency fix with the topbar nav.</div>
+    <div class="time">5 min</div>
+  </div>
+</section>
+
+<!-- ================= SECTION 5 — EXPLICITLY OUT OF SCOPE ================= -->
+<section class="spec-section">
+  <h2 data-num="05 · OUT OF SCOPE">What this pass does not touch</h2>
+  <p class="sdesc">Bank this list. Each item is a future-pass candidate, not a gap.</p>
+
+  <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 28px; font-size: 15px; line-height: 1.7;">
+    <ul style="margin: 0; padding-left: 20px;">
+      <li><strong>Statement-background section</strong> (instrument.com-style treatment) — new section, ~1.5–2 hrs of dev on its own. Reference concept lives at <code>concepts/statement-bg.html</code>. Suggested slot when we revisit: between "Choose Your Engine" and "Trusted by bold brands".</li>
+      <li><strong>Team bio rewrites</strong> — role titles only in this pass.</li>
+      <li><strong>Plan pricing in €</strong> — confirmed to stay hidden. Discovery-call-first is the current funnel.</li>
+      <li><strong>Hero video</strong> — unchanged.</li>
+      <li><strong>Tab toggle imagery</strong> — labels change, images stay.</li>
+      <li><strong>Navigation structure</strong> — topbar and footer nav unchanged.</li>
+      <li><strong>"Always included — across every plan" card</strong> — copy unchanged this pass.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<section class="final">
+  <div class="inner">
+    <h2>Hand-off checklist</h2>
+    <p>Minimum viable sign-off before the dev opens Webflow.</p>
+    <ol>
+      <li><strong>Copy edits</strong> — approve the twelve text swaps in Section 01 as written, or flag edits.</li>
+      <li><strong>Plan-card terminology</strong> — confirm the nine swaps in Section 02 (previewed in Section 03).</li>
+      <li><strong>Image swaps</strong> — point the dev at the asset library, or commission the two new illustrations.</li>
+      <li><strong>Go / no-go</strong> — one Slack message, and the work is started.</li>
+    </ol>
+    <p style="margin-top: 24px; color: rgba(255,255,255,0.55); font-size: 13px;">
+      Spec v1 · prepared 2026-04-20 · statement-bg concept deferred · total dev budget ~2h 35m including QA.
+    </p>
+  </div>
+</section>
+
+</body>
+</html>

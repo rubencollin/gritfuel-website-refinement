@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+<rect width="1600" height="1000" fill="#1A1A1A"/>
+<text x="96" y="96" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="18" fill="#DEE450" letter-spacing="4" text-anchor="start">THE SYSTEM · YOUR GROWTH DASHBOARD</text>
+<text x="96" y="190" font-family="Montserrat Thin" font-weight="900" font-style="normal" font-size="84" fill="#FFFFFF" letter-spacing="0" text-anchor="start">One score.</text>
+<text x="96" y="280" font-family="Montserrat Thin" font-weight="200" font-style="normal" font-size="84" fill="rgb(120,120,120)" letter-spacing="0" text-anchor="start">Six signals.</text>
+<text x="96" y="370" font-family="Montserrat Thin" font-weight="900" font-style="normal" font-size="84" fill="#FFFFFF" letter-spacing="0" text-anchor="start">Always current.</text>
+<rect x="96" y="460" width="660" height="460" fill="#FC4E2B"/>
+<text x="132" y="514" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="20" fill="#1A1A1A" letter-spacing="4" text-anchor="start">COMPOUND SCORE</text>
+<text x="132" y="720" font-family="Montserrat Thin" font-weight="900" font-style="normal" font-size="260" fill="#1A1A1A" letter-spacing="-3" text-anchor="start">+87</text>
+<text x="132" y="800" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="22" fill="#1A1A1A" letter-spacing="0" text-anchor="start">+24 vs last cycle</text>
+<polyline points="132,880 170,877 208,870 246,858 284,841 322,820 360,793 398,762" fill="none" stroke="#1A1A1A" stroke-width="4" stroke-linecap="square"/>
+<rect x="800" y="460" width="370" height="220" fill="rgb(34,34,34)" stroke="rgb(60,60,60)" stroke-width="2"/>
+<text x="828" y="504" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="15" fill="rgb(170,170,170)" letter-spacing="3" text-anchor="start">PIPELINE</text>
+<text x="828" y="588" font-family="Montserrat Thin" font-weight="900" font-style="normal" font-size="68" fill="#FFFFFF" letter-spacing="-1" text-anchor="start">€2.4M</text>
+<text x="828" y="628" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="18" fill="#FC4E2B" letter-spacing="0" text-anchor="start">+18%</text>
+<text x="828" y="656" font-family="Inter" font-weight="400" font-style="normal" font-size="15" fill="rgb(170,170,170)" letter-spacing="0" text-anchor="start">qualified this cycle</text>
+<rect x="1190" y="460" width="370" height="220" fill="rgb(34,34,34)" stroke="rgb(60,60,60)" stroke-width="2"/>
+<text x="1218" y="504" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="15" fill="rgb(170,170,170)" letter-spacing="3" text-anchor="start">ICP FIT</text>
+<text x="1218" y="588" font-family="Montserrat Thin" font-weight="900" font-style="normal" font-size="68" fill="#FFFFFF" letter-spacing="-1" text-anchor="start">74%</text>
+<text x="1218" y="628" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="18" fill="#FC4E2B" letter-spacing="0" text-anchor="start">+9 pts</text>
+<text x="1218" y="656" font-family="Inter" font-weight="400" font-style="normal" font-size="15" fill="rgb(170,170,170)" letter-spacing="0" text-anchor="start">avg across pipeline</text>
+<rect x="800" y="700" width="370" height="220" fill="rgb(34,34,34)" stroke="rgb(60,60,60)" stroke-width="2"/>
+<text x="828" y="744" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="15" fill="rgb(170,170,170)" letter-spacing="3" text-anchor="start">CAC</text>
+<text x="828" y="828" font-family="Montserrat Thin" font-weight="900" font-style="normal" font-size="68" fill="#FFFFFF" letter-spacing="-1" text-anchor="start">€840</text>
+<text x="828" y="868" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="18" fill="#FC4E2B" letter-spacing="0" text-anchor="start">-12%</text>
+<text x="828" y="896" font-family="Inter" font-weight="400" font-style="normal" font-size="15" fill="rgb(170,170,170)" letter-spacing="0" text-anchor="start">blended, trailing 30d</text>
+<rect x="1190" y="700" width="370" height="220" fill="rgb(34,34,34)" stroke="rgb(60,60,60)" stroke-width="2"/>
+<text x="1218" y="744" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="15" fill="rgb(170,170,170)" letter-spacing="3" text-anchor="start">SIGNAL</text>
+<text x="1218" y="828" font-family="Montserrat Thin" font-weight="900" font-style="normal" font-size="68" fill="#FFFFFF" letter-spacing="-1" text-anchor="start">3 up</text>
+<text x="1218" y="868" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="18" fill="#FC4E2B" letter-spacing="0" text-anchor="start">1 down</text>
+<text x="1218" y="896" font-family="Inter" font-weight="400" font-style="normal" font-size="15" fill="rgb(170,170,170)" letter-spacing="0" text-anchor="start">vs playbook targets</text>
+<text x="96" y="960" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="14" fill="rgb(170,170,170)" letter-spacing="3" text-anchor="start">6 SIGNALS · 1 SCORE · 1 PLAYBOOK · REVIEWED MONTHLY</text>
+</svg>

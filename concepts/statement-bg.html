@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept · Statement background (instrument.com feel) — GritFuel</title>
+<link rel="stylesheet" href="../assets/shared.css">
+<style>
+  body { background: var(--paper); overflow-x: hidden; }
+
+  /* Dev-bar */
+  .micro-bar { background: var(--ink); color: var(--paper); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; padding: 10px 24px; text-align: center; }
+  .micro-bar a { color: var(--lime); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Spacer so the section isn't slammed against the bar */
+  .spacer {
+    padding: 40px 0;
+    background: var(--paper);
+    text-align: center;
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em;
+    color: var(--gray); text-transform: uppercase;
+  }
+  .spacer .line { display: inline-block; height: 1px; width: 60px; background: var(--gray-200); vertical-align: middle; margin: 0 16px; }
+
+  /* ================= STATEMENT BACKGROUND BAND ================= */
+  .statement-band {
+    position: relative;
+    background: var(--paper);
+    padding: 160px 0 200px;
+    overflow: hidden;
+    min-height: 92vh;
+    display: flex; align-items: stretch;
+  }
+
+  /* The huge background statement */
+  .statement-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 4vw;
+    user-select: none;
+  }
+  .statement-bg .word {
+    font-family: var(--f-display); font-weight: 900;
+    font-size: clamp(120px, 18vw, 280px);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    color: #D8D8D3;  /* very light on paper */
+    white-space: nowrap;
+    position: relative;
+  }
+  .statement-bg .word.indent-1 { margin-left: 8vw; }
+  .statement-bg .word.indent-2 { margin-left: -2vw; }
+  .statement-bg .word.script {
+    font-family: 'Playfair Display', 'Didot', serif;
+    font-style: italic; font-weight: 400;
+    color: #D2D2CC;
+    letter-spacing: -0.01em;
+    font-size: clamp(140px, 22vw, 340px);
+    line-height: 0.8;
+  }
+  .statement-bg .word.lime {
+    color: var(--lime); opacity: 0.55;
+  }
+
+  /* Body-copy layer (sits bottom-left, over the statement) */
+  .statement-fg {
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+    margin: auto 0 0 6vw;  /* bottom-left anchor */
+    align-self: flex-end;
+  }
+  .statement-fg .eyebrow { color: var(--orange); margin-bottom: 20px; }
+  .statement-fg p {
+    font-family: var(--f-body); font-size: 20px; line-height: 1.5;
+    color: var(--ink);
+    margin: 0 0 28px;
+    max-width: 40ch;
+  }
+  .statement-fg .btn {
+    background: var(--ink); color: var(--white);
+    padding: 18px 28px;
+  }
+  .statement-fg .btn:hover { background: var(--orange); }
+
+  /* Variant 2: Lime band, tagline as full-screen filler  */
+  .statement-band.v2 { background: var(--lime); padding: 180px 0; }
+  .statement-band.v2 .statement-bg .word { color: rgba(26,26,26,0.12); }
+  .statement-band.v2 .statement-bg .word.script { color: rgba(26,26,26,0.14); }
+  .statement-band.v2 .statement-fg .eyebrow { color: var(--ink); opacity: 0.6; }
+  .statement-band.v2 .statement-fg p { color: var(--ink); }
+  .statement-band.v2 .statement-fg .btn { background: var(--ink); color: var(--lime); }
+  .statement-band.v2 .statement-fg .btn:hover { background: var(--orange); color: var(--white); }
+
+  /* Variant 3: Dark band */
+  .statement-band.v3 { background: var(--ink); padding: 180px 0; }
+  .statement-band.v3 .statement-bg .word { color: rgba(255,255,255,0.08); }
+  .statement-band.v3 .statement-bg .word.script { color: rgba(255,255,255,0.1); }
+  .statement-band.v3 .statement-bg .word.lime { color: var(--lime); opacity: 0.25; }
+  .statement-band.v3 .statement-fg .eyebrow { color: var(--lime); }
+  .statement-band.v3 .statement-fg p { color: rgba(255,255,255,0.86); }
+  .statement-band.v3 .statement-fg .btn { background: var(--lime); color: var(--ink); }
+
+  /* Variant legend */
+  .variant-legend {
+    position: absolute;
+    top: 24px; right: 24px;
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border: 1px solid currentColor;
+    color: var(--gray); border-radius: 999px;
+    z-index: 2;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(4px);
+  }
+  .statement-band.v2 .variant-legend { color: var(--charcoal); border-color: rgba(26,26,26,0.3); background: rgba(222,228,80,0.6); }
+  .statement-band.v3 .variant-legend { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.2); background: rgba(26,26,26,0.6); }
+
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&display=swap');
+</style>
+</head>
+<body>
+
+<div class="micro-bar">
+  Concept · Statement-background treatment (instrument.com style) ·
+  <a href="../index.html">← back</a>
+</div>
+
+<!-- ================= VARIANT 1 — Paper / charcoal ================= -->
+<div class="spacer"><span class="line"></span>Variant 1 · Paper base · charcoal tagline<span class="line"></span></div>
+<section class="statement-band">
+  <span class="variant-legend">V1 · Paper + Charcoal</span>
+  <div class="statement-bg">
+    <div class="word indent-1">Human</div>
+    <div class="word script">thinking.</div>
+    <div class="word indent-2">Relentless</div>
+    <div class="word script" style="margin-left: 14vw;">execution.</div>
+  </div>
+  <div class="statement-fg">
+    <span class="eyebrow">What drives the OS</span>
+    <p>The system runs the cadence. People make the calls. Every Playbook, every credit, every escalation has a senior operator behind it who owns the outcome — not a template, not a ticket.</p>
+    <a href="#" class="btn">Meet the team →</a>
+  </div>
+</section>
+
+<!-- ================= VARIANT 2 — Lime ================= -->
+<div class="spacer"><span class="line"></span>Variant 2 · Lime base · ink tagline<span class="line"></span></div>
+<section class="statement-band v2">
+  <span class="variant-legend">V2 · Lime + Ink</span>
+  <div class="statement-bg">
+    <div class="word indent-1">Growth</div>
+    <div class="word script">that</div>
+    <div class="word indent-2">compounds.</div>
+    <div class="word script" style="margin-left: 18vw;">Visibly.</div>
+  </div>
+  <div class="statement-fg">
+    <span class="eyebrow">The month compounds</span>
+    <p>One Playbook. Three plays. A Compound Score that updates every month — what worked rolls forward, what didn't gets archived with the reason. Six months in, the story is smarter than anyone could write on day one.</p>
+    <a href="#" class="btn">See the Dashboard →</a>
+  </div>
+</section>
+
+<!-- ================= VARIANT 3 — Dark ================= -->
+<div class="spacer"><span class="line"></span>Variant 3 · Ink base · lime accent<span class="line"></span></div>
+<section class="statement-band v3">
+  <span class="variant-legend">V3 · Ink + Lime</span>
+  <div class="statement-bg">
+    <div class="word indent-1">The growth</div>
+    <div class="word script lime">operating</div>
+    <div class="word indent-2">system.</div>
+  </div>
+  <div class="statement-fg">
+    <span class="eyebrow">Category of one</span>
+    <p>Not an agency. Not a fractional hire. The first operating system for growth — strategy, execution and compounding intelligence in one monthly subscription. One contract. One score. One place the story gets smarter.</p>
+    <a href="#" class="btn">Book a discovery call →</a>
+  </div>
+</section>
+
+<!-- ================= FOOTER NOTE ================= -->
+<section class="band paper" style="padding: 80px 0;">
+  <div class="container n">
+    <h2 style="font-size: 32px;">Three flavours of the same move.</h2>
+    <p class="lead" style="max-width: 60ch;">Each is a single band that can sit anywhere in the one-pager — after the hero, between plans and proof, or as the closing frame before the CTA. Pick the copy and the palette, drop it in. Dev cost: ~half a day.</p>
+    <p style="color: var(--gray); font-size: 14px;">The reference you shared (instrument.com) uses scroll-anchoring so the statement pins while the body copy scrolls past. I've left that off this first pass — easy to add once you've picked a flavour, but it's a visual effect on top of the layout, not the layout itself.</p>
+
+    <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 28px; margin-top: 32px;">
+      <h4 style="color: var(--orange); text-transform: none; font-size: 14px; letter-spacing: 0;">How this slots into the one-pager</h4>
+      <ol style="padding-left: 22px; line-height: 1.7; margin: 0;">
+        <li><strong>Hero</strong> (race-car video — unchanged)</li>
+        <li><strong>What it is</strong> (one-paragraph differentiator, refreshed copy)</li>
+        <li><strong>Plans</strong> (replaced with pricing_v7 tiers as-is)</li>
+        <li style="background: var(--lime); padding: 4px 8px; border-radius: 4px; display: inline-block; margin: 4px 0;"><strong>Statement band</strong> ← this concept slots here, V1 or V2</li>
+        <li><strong>Proof</strong> (refreshed imagery)</li>
+        <li><strong>Closing CTA</strong> (could use V3 variant)</li>
+        <li><strong>Light footer</strong> (logo, contact, 3 links — no menu)</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Icons · Batch 02 — GritFuel</title>
+<link rel="stylesheet" href="assets/shared.css">
+<style>
+  body { background: var(--paper); }
+
+  .micro-bar { background: var(--ink); color: var(--paper); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; padding: 10px 24px; text-align: center; }
+  .micro-bar .lime { color: var(--lime); }
+  .micro-bar a { color: var(--lime); text-decoration: underline; text-underline-offset: 3px; }
+
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 48px 32px 96px; }
+
+  .page-head h1 {
+    font-family: var(--f-display); font-weight: 900;
+    font-size: clamp(36px, 4.5vw, 56px); line-height: 1.02; letter-spacing: -0.025em;
+    margin: 0 0 12px;
+  }
+  .page-head .kicker { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gray); }
+  .page-head .lead { max-width: 64ch; color: #2A2A2A; font-size: 18px; line-height: 1.55; }
+
+  .meta-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    margin: 32px 0 56px;
+  }
+  .meta-cell {
+    background: var(--white); border: 1px solid var(--gray-200);
+    border-radius: 12px; padding: 18px 20px;
+  }
+  .meta-cell .lbl { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gray); }
+  .meta-cell .val { font-family: var(--f-display); font-weight: 800; font-size: 22px; line-height: 1.1; margin-top: 6px; }
+  .meta-cell .sub { font-size: 12.5px; color: var(--gray); margin-top: 4px; }
+
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    border-bottom: 1px solid var(--gray-200); padding-bottom: 12px; margin: 40px 0 28px;
+  }
+  .section-head h2 {
+    font-family: var(--f-display); font-weight: 800; font-size: 24px;
+    margin: 0; letter-spacing: -0.015em;
+  }
+  .section-head .count {
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gray);
+  }
+
+  .icon-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    margin-bottom: 20px;
+  }
+  .icon-card {
+    background: var(--white); border: 1px solid var(--gray-200);
+    border-radius: 14px; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .icon-card .art {
+    display: flex; align-items: center; justify-content: center;
+    height: 160px; background: var(--paper);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .icon-card.dark .art { background: var(--ink); }
+  .icon-card .art img { width: 72px; height: 72px; }
+  .icon-card .meta { padding: 16px 18px 18px; }
+  .icon-card .meta .tag {
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gray);
+  }
+  .icon-card .meta h4 {
+    font-family: var(--f-display); font-weight: 800; font-size: 15px;
+    margin: 6px 0 4px; letter-spacing: -0.005em;
+  }
+  .icon-card .meta p { font-size: 12.5px; color: #2A2A2A; line-height: 1.5; margin: 0; }
+  .icon-card .links {
+    display: flex; gap: 8px; padding: 0 18px 18px; flex-wrap: wrap;
+  }
+  .icon-card .links a {
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink);
+    border: 1px solid var(--gray-300); padding: 5px 9px; border-radius: 999px;
+    text-decoration: none;
+  }
+  .icon-card .links a.new { border-color: var(--orange); color: var(--orange); }
+
+  .placement-table {
+    width: 100%; border-collapse: collapse;
+    background: var(--white); border: 1px solid var(--gray-200);
+    border-radius: 12px; overflow: hidden; margin-top: 8px;
+  }
+  .placement-table th, .placement-table td {
+    padding: 12px 16px; text-align: left; font-size: 13.5px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .placement-table th {
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gray);
+    background: var(--gray-100);
+  }
+  .placement-table tr:last-child td { border-bottom: 0; }
+  .placement-table td code {
+    font-family: var(--f-mono); font-size: 11.5px;
+    background: var(--gray-100); padding: 2px 6px; border-radius: 4px;
+  }
+  .placement-table .new-badge {
+    display: inline-block; font-family: var(--f-mono); font-size: 9px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange);
+    border: 1px solid var(--orange); padding: 2px 6px; border-radius: 999px;
+    margin-left: 6px;
+  }
+
+  .notes-panel {
+    background: var(--white); border: 1px solid var(--gray-200);
+    border-radius: 12px; padding: 28px; margin-top: 56px;
+  }
+  .notes-panel h3 { font-family: var(--f-display); font-weight: 800; font-size: 22px; margin: 0 0 16px; }
+  .notes-panel ul { padding-left: 22px; }
+  .notes-panel li { font-size: 14.5px; line-height: 1.7; margin-bottom: 8px; }
+
+  .footer-note {
+    margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--gray-200);
+    font-size: 13px; color: var(--gray);
+  }
+
+  @media (max-width: 1040px) {
+    .icon-grid { grid-template-columns: repeat(3, 1fr); }
+    .meta-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 720px) {
+    .icon-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="micro-bar">
+  Icons preview · <span class="lime">Batch 02</span> · 8 existing + 6 new · <a href="imagery-preview.html">← statement-bg</a> · <a href="refinement-spec.html">spec</a>
+</div>
+
+<div class="wrap">
+
+<div class="page-head">
+  <span class="kicker">Batch 02 · Tool &amp; process icons · 32×32 SVG + 512 PNG</span>
+  <h1>Six new icons to finish the set.<br>One shared visual language.</h1>
+  <p class="lead">
+    The existing 8 icons (Playbook, Signal, System, Loop, Momentum, Control, Execution,
+    Team) already cover the brand's core mental model. This batch adds 6 more for the
+    parts of the OS that still render as emoji, Lucide fallbacks, or no icon at all —
+    Compound Score, Escalation Router, Credit Allocation, Dashboard, ALC Menu, and
+    Strategist. All drawn to the same recipe: 32×32 viewBox, charcoal strokes,
+    one orange accent, transparent background.
+  </p>
+
+  <div class="meta-grid">
+    <div class="meta-cell">
+      <div class="lbl">System</div>
+      <div class="val">14 icons</div>
+      <div class="sub">8 existing + 6 new</div>
+    </div>
+    <div class="meta-cell">
+      <div class="lbl">Format</div>
+      <div class="val">SVG + PNG</div>
+      <div class="sub">32×32 source · 512 export</div>
+    </div>
+    <div class="meta-cell">
+      <div class="lbl">Palette</div>
+      <div class="val">Charcoal + Orange</div>
+      <div class="sub">Plus -inv for dark bg</div>
+    </div>
+    <div class="meta-cell">
+      <div class="lbl">Recipe</div>
+      <div class="val">Stroke 1.4–1.75</div>
+      <div class="sub">One accent per icon</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= NEW SIX ============= -->
+<div class="section-head">
+  <h2>New · Batch 02 (6 icons)</h2>
+  <span class="count">add to the set</span>
+</div>
+
+<div class="icon-grid">
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons-png/compound-score.png" alt="Compound Score icon — four rising bars, orange tallest"></div>
+    <div class="meta">
+      <span class="tag">New · Compound Score</span>
+      <h4>Compound Score</h4>
+      <p>Four rising bars, orange on the tallest — reads as "this number grows each month". For the KPI callouts and the Growth Dashboard.</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/compound-score.svg" class="new">SVG</a>
+      <a href="assets/icons-png/compound-score.png" class="new">PNG</a>
+      <a href="assets/icons/compound-score-inv.svg" class="new">inv</a>
+    </div>
+  </div>
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons-png/escalation-router.png" alt="Escalation Router icon — one input routes to three specialists, one orange"></div>
+    <div class="meta">
+      <span class="tag">New · Escalation Router</span>
+      <h4>Escalation Router</h4>
+      <p>One input routing to three specialists, one orange (the one picked up). Sits on the "senior operators, not juniors" proof point.</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/escalation-router.svg" class="new">SVG</a>
+      <a href="assets/icons-png/escalation-router.png" class="new">PNG</a>
+      <a href="assets/icons/escalation-router-inv.svg" class="new">inv</a>
+    </div>
+  </div>
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons-png/credit-allocation.png" alt="Credit Allocation icon — circle with orange arc covering ~25%"></div>
+    <div class="meta">
+      <span class="tag">New · Credit Allocation</span>
+      <h4>Credit Allocation</h4>
+      <p>Dial with an orange arc — "credits deployed this cycle". For the two-stream plan explainer and the ALC pool callouts.</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/credit-allocation.svg" class="new">SVG</a>
+      <a href="assets/icons-png/credit-allocation.png" class="new">PNG</a>
+      <a href="assets/icons/credit-allocation-inv.svg" class="new">inv</a>
+    </div>
+  </div>
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons-png/dashboard.png" alt="Dashboard icon — 2×2 tile grid with orange tile + trendline"></div>
+    <div class="meta">
+      <span class="tag">New · Dashboard</span>
+      <h4>Dashboard</h4>
+      <p>2×2 KPI tiles with trend line on one and orange fill on another. Replaces the generic "control panel" mental image with something recognisable.</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/dashboard.svg" class="new">SVG</a>
+      <a href="assets/icons-png/dashboard.png" class="new">PNG</a>
+      <a href="assets/icons/dashboard-inv.svg" class="new">inv</a>
+    </div>
+  </div>
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons-png/menu.png" alt="Menu icon — five horizontal rows with one orange line highlighting a menu item"></div>
+    <div class="meta">
+      <span class="tag">New · ALC Menu</span>
+      <h4>ALC Menu</h4>
+      <p>A catalog with one item picked (orange row). Signals "the 153 things your credits can buy" without listing them.</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/menu.svg" class="new">SVG</a>
+      <a href="assets/icons-png/menu.png" class="new">PNG</a>
+      <a href="assets/icons/menu-inv.svg" class="new">inv</a>
+    </div>
+  </div>
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons-png/strategist.png" alt="Strategist icon — human figure with orange head"></div>
+    <div class="meta">
+      <span class="tag">New · Strategist</span>
+      <h4>Strategist</h4>
+      <p>A human figure — head in orange as the accent. The "human face" counterpoint to the system icons. For the Strategist block and the bios row.</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/strategist.svg" class="new">SVG</a>
+      <a href="assets/icons-png/strategist.png" class="new">PNG</a>
+      <a href="assets/icons/strategist-inv.svg" class="new">inv</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============= EXISTING EIGHT ============= -->
+<div class="section-head">
+  <h2>Existing · Brand Guide v2 (8 icons)</h2>
+  <span class="count">already in use</span>
+</div>
+
+<div class="icon-grid">
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons/playbook.svg" alt="Playbook icon"></div>
+    <div class="meta">
+      <span class="tag">Existing · Playbook</span>
+      <h4>Playbook</h4>
+      <p>The monthly Playbook — the document the founder signs off at the start of each cycle.</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/playbook.svg">SVG</a>
+      <a href="assets/icons/playbook-inv.svg">inv</a>
+    </div>
+  </div>
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons/signal.svg" alt="Signal icon"></div>
+    <div class="meta">
+      <span class="tag">Existing · Signal</span>
+      <h4>Signal</h4>
+      <p>Telemetry / pattern detection. "What's actually moving the number."</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/signal.svg">SVG</a>
+      <a href="assets/icons/signal-inv.svg">inv</a>
+    </div>
+  </div>
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons/system.svg" alt="System icon"></div>
+    <div class="meta">
+      <span class="tag">Existing · System</span>
+      <h4>System</h4>
+      <p>The operating system itself — the product. For "OS" references in the nav and hero.</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/system.svg">SVG</a>
+      <a href="assets/icons/system-inv.svg">inv</a>
+    </div>
+  </div>
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons/loop.svg" alt="Loop icon"></div>
+    <div class="meta">
+      <span class="tag">Existing · Loop</span>
+      <h4>Loop</h4>
+      <p>The monthly cadence — Plan → Ship → Measure → Decide. Closes on itself.</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/loop.svg">SVG</a>
+      <a href="assets/icons/loop-inv.svg">inv</a>
+    </div>
+  </div>
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons/momentum.svg" alt="Momentum icon"></div>
+    <div class="meta">
+      <span class="tag">Existing · Momentum</span>
+      <h4>Momentum</h4>
+      <p>Growth that compounds — the trendline. Use near "compound" language in body copy.</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/momentum.svg">SVG</a>
+      <a href="assets/icons/momentum-inv.svg">inv</a>
+    </div>
+  </div>
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons/control.svg" alt="Control icon"></div>
+    <div class="meta">
+      <span class="tag">Existing · Control</span>
+      <h4>Control</h4>
+      <p>The founder-in-control framing. For the plans column callouts and the governance block.</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/control.svg">SVG</a>
+      <a href="assets/icons/control-inv.svg">inv</a>
+    </div>
+  </div>
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons/execution.svg" alt="Execution icon"></div>
+    <div class="meta">
+      <span class="tag">Existing · Execution</span>
+      <h4>Execution</h4>
+      <p>"Relentless execution" — the second half of the tagline. For the methodology block.</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/execution.svg">SVG</a>
+      <a href="assets/icons/execution-inv.svg">inv</a>
+    </div>
+  </div>
+
+  <div class="icon-card">
+    <div class="art"><img src="assets/icons/team.svg" alt="Team icon"></div>
+    <div class="meta">
+      <span class="tag">Existing · Team</span>
+      <h4>Team</h4>
+      <p>The collective — senior operators, Strategist, the specialists. For the bench / capacity visual.</p>
+    </div>
+    <div class="links">
+      <a href="assets/icons/team.svg">SVG</a>
+      <a href="assets/icons/team-inv.svg">inv</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============= DARK BACKGROUND CHECK ============= -->
+<div class="section-head">
+  <h2>Dark-background check (-inv variants)</h2>
+  <span class="count">quick sanity scan</span>
+</div>
+
+<div class="icon-grid">
+  <div class="icon-card dark">
+    <div class="art"><img src="assets/icons/compound-score-inv.svg" alt="Compound Score inv on ink"></div>
+    <div class="meta"><span class="tag">Dark bg · new</span><h4>Compound Score -inv</h4><p>Body strokes white, accent stays orange.</p></div>
+  </div>
+  <div class="icon-card dark">
+    <div class="art"><img src="assets/icons/escalation-router-inv.svg" alt="Escalation Router inv on ink"></div>
+    <div class="meta"><span class="tag">Dark bg · new</span><h4>Escalation Router -inv</h4><p>For the dark footer band / closing CTA.</p></div>
+  </div>
+  <div class="icon-card dark">
+    <div class="art"><img src="assets/icons/dashboard-inv.svg" alt="Dashboard inv on ink"></div>
+    <div class="meta"><span class="tag">Dark bg · new</span><h4>Dashboard -inv</h4><p>Reads cleanly on ink — orange tile stays the anchor.</p></div>
+  </div>
+  <div class="icon-card dark">
+    <div class="art"><img src="assets/icons/strategist-inv.svg" alt="Strategist inv on ink"></div>
+    <div class="meta"><span class="tag">Dark bg · new</span><h4>Strategist -inv</h4><p>Head stays orange. Use in the Strategist band on ink.</p></div>
+  </div>
+</div>
+
+<!-- ============= PLACEMENT TABLE ============= -->
+<div class="section-head">
+  <h2>Suggested placements on gritfuel.works</h2>
+  <span class="count">where each icon lands</span>
+</div>
+
+<table class="placement-table">
+  <thead>
+    <tr>
+      <th style="width:22%">Icon</th>
+      <th style="width:28%">Section</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Compound Score</strong><span class="new-badge">new</span></td>
+      <td><code>#growth-score</code> / hero stat</td>
+      <td>Sits next to the Compound Score number. Replaces the generic trendline used today.</td>
+    </tr>
+    <tr>
+      <td><strong>Dashboard</strong><span class="new-badge">new</span></td>
+      <td><code>#growth-dashboard</code></td>
+      <td>Section icon for the Growth Dashboard block. Replaces the Lucide "bar chart" fallback.</td>
+    </tr>
+    <tr>
+      <td><strong>Playbook</strong></td>
+      <td><code>#tab-playbook</code></td>
+      <td>Already placed. Confirmed correct — keep.</td>
+    </tr>
+    <tr>
+      <td><strong>Strategist</strong><span class="new-badge">new</span></td>
+      <td><code>#strategist-band</code> / tab 2</td>
+      <td>Human-face counterweight to system icons. Use in the "senior operators, not juniors" block.</td>
+    </tr>
+    <tr>
+      <td><strong>Escalation Router</strong><span class="new-badge">new</span></td>
+      <td><code>#how-it-works</code> step 03</td>
+      <td>Visualises the routing moment — founder ask → Strategist → specialist. Pairs with the new Step 03 illustration (Batch 03).</td>
+    </tr>
+    <tr>
+      <td><strong>ALC Menu</strong><span class="new-badge">new</span></td>
+      <td>Plans cards · "Your credits fund"</td>
+      <td>Tiny inline icon on each plan card above the credit-pool list.</td>
+    </tr>
+    <tr>
+      <td><strong>Credit Allocation</strong><span class="new-badge">new</span></td>
+      <td>Plans cards · capacity badge</td>
+      <td>Sits next to the credit-capacity number on each plan card. Signals "this is a meter, not a line-item".</td>
+    </tr>
+    <tr>
+      <td><strong>System</strong></td>
+      <td>Nav / hero eyebrow</td>
+      <td>Anchors the word "Operating System" in the H1 and top-nav.</td>
+    </tr>
+    <tr>
+      <td><strong>Loop</strong></td>
+      <td><code>#monthly-cadence</code></td>
+      <td>For the four-step loop illustration. Already placed.</td>
+    </tr>
+    <tr>
+      <td><strong>Momentum</strong></td>
+      <td><code>#proof</code> / results strip</td>
+      <td>Results strip eyebrow — "Growth that compounds. Visibly."</td>
+    </tr>
+    <tr>
+      <td><strong>Signal</strong></td>
+      <td><code>#what-we-watch</code></td>
+      <td>For the telemetry/metric callouts. Secondary placement option on the Dashboard section.</td>
+    </tr>
+    <tr>
+      <td><strong>Control</strong></td>
+      <td><code>#founder-sign-off</code></td>
+      <td>Sits on the "you sign off every Playbook" proof point.</td>
+    </tr>
+    <tr>
+      <td><strong>Execution</strong></td>
+      <td>Tab 3 · "Zero fluff. One score."</td>
+      <td>For the methodology tab that leads with execution proof.</td>
+    </tr>
+    <tr>
+      <td><strong>Team</strong></td>
+      <td><code>#bench</code> / trusted-by row</td>
+      <td>Eyebrow for the bench capacity / collective block.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ============= IMPLEMENTATION NOTES ============= -->
+<div class="notes-panel">
+  <h3>Dev notes for implementation</h3>
+  <ul>
+    <li><strong>Use SVG on the site, PNG only for export.</strong> SVGs scale cleanly at any viewport; PNGs are provided at 512×512 for LinkedIn, deck slides, or any raster context. Inline the SVG where color inheritance matters (e.g., swapping strokes on hover).</li>
+    <li><strong>Never use the PNG where the SVG will do.</strong> The PNG export loses the vector crispness that is the whole point of the set.</li>
+    <li><strong>-inv variants for dark bands only.</strong> Use the default on paper / white backgrounds; use <code>-inv</code> on <code>--ink</code> (#1A1A1A) backgrounds like the footer and closing CTA. Orange stays orange in both.</li>
+    <li><strong>Stroke weights are intentional.</strong> Body strokes are 1.4 (thin connective lines) or 1.75 (containers and primary geometry). Don't normalise them — the weight variance is what gives the set its editorial feel.</li>
+    <li><strong>No lime in icons.</strong> The icon palette is charcoal + orange + white only. Lime is reserved for buttons, statements, and backgrounds — keeping the icon layer calm lets the lime moments land harder.</li>
+    <li><strong>Source of truth:</strong> SVG files in <code>assets/icons/</code>. Regeneration script at <code>/website-refinement-scripts/make_icons.py</code>. If you tweak one, re-run the script so the PNG export stays in sync.</li>
+    <li><strong>Batch 03 next if you want them:</strong> Step 03 compound stair-step illustration, and the dashboard-tile cluster replacing the gear graphic.</li>
+  </ul>
+</div>
+
+<div class="footer-note">
+  Icons batch v2 · 2026-04-20 · source script at
+  <code>/website-refinement-scripts/make_icons.py</code> · preview shell reuses the imagery-preview pattern
+</div>
+
+</div>
+
+</body>
+</html>

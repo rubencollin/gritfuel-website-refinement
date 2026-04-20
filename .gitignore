@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Office lock files
+.~lock.*
+
+# Local server
+*.pid
+*.log
+
+# Misc
+Thumbs.db

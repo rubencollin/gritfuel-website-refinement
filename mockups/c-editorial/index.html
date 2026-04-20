@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup C · Editorial / bolder — GritFuel</title>
+<link rel="stylesheet" href="../../assets/shared.css">
+<style>
+  .micro-bar { background: var(--ink); color: var(--paper); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; padding: 10px 24px; text-align: center; }
+  .micro-bar a { color: var(--lime); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Editorial overrides */
+  body { background: var(--ink); color: #ECECEC; }
+  h1 { font-size: clamp(56px, 9vw, 128px); letter-spacing: -0.04em; line-height: 0.98; }
+  h2 { font-size: clamp(40px, 6vw, 80px); letter-spacing: -0.03em; line-height: 1.02; }
+  h3 { font-size: clamp(24px, 2.6vw, 34px); }
+  .band { padding: var(--s-10) 0; }
+
+  /* Editorial topbar */
+  .topbar { background: rgba(26,26,26,0.8); border-bottom: 1px solid #2a2a2a; }
+  .topbar nav a { color: rgba(255,255,255,0.78); }
+  .topbar nav a:hover { color: var(--lime); }
+  .topbar .cta { background: var(--lime); color: var(--ink); }
+  .topbar .cta:hover { background: var(--white); color: var(--ink); }
+
+  /* Editorial hero */
+  .hero-wrap { min-height: 100vh; }
+  .hero-wrap .hero-scrim {
+    background: linear-gradient(80deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.2) 100%);
+  }
+  .hero-wrap .hero-inner { padding: 140px var(--s-7) 72px; }
+  .hero-wrap h1 { max-width: 14ch; }
+  .hero-wrap .lead { color: rgba(255,255,255,0.76); font-size: 24px; max-width: 50ch; }
+  .hero-meta {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    margin-top: 88px; padding-top: 24px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  }
+  .hero-meta .mi .l { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--lime); }
+  .hero-meta .mi .v { font-family: var(--f-display); font-weight: 700; font-size: 18px; color: var(--white); margin-top: 6px; letter-spacing: -0.01em; }
+
+  /* Big editorial statement */
+  .statement {
+    padding: 100px 0;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .statement h2 { color: var(--ink); font-size: clamp(36px, 5.5vw, 92px); max-width: 20ch; margin: 0 auto; text-align: center; letter-spacing: -0.03em; line-height: 1.02; }
+  .statement h2 em { font-style: normal; background: var(--lime); padding: 0 0.18em 0.08em; color: var(--ink); }
+
+  /* Three pillars */
+  .pillars { background: var(--paper); color: var(--ink); padding: 40px 0 120px; }
+  .pillars .grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink);
+    background: var(--ink);
+  }
+  @media (max-width: 900px) { .pillars .grid { grid-template-columns: 1fr; } }
+  .pillar-cell { background: var(--paper); padding: 56px 40px; }
+  .pillar-cell .num { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; color: var(--orange); }
+  .pillar-cell h3 { color: var(--ink); font-size: 28px; margin: 12px 0 16px; letter-spacing: -0.015em; }
+  .pillar-cell p { color: #2a2a2a; margin: 0; font-size: 15px; line-height: 1.6; }
+
+  /* How it works — dark editorial */
+  .how-ed { padding: 120px 0; background: var(--ink); }
+  .how-ed .container { max-width: 1280px; margin: 0 auto; padding: 0 var(--s-7); }
+  .how-ed .heading { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 72px; }
+  @media (max-width: 900px) { .how-ed .heading { grid-template-columns: 1fr; } }
+  .how-ed h2 { color: var(--white); margin: 0; }
+  .how-ed .heading p { color: rgba(255,255,255,0.72); font-size: 20px; line-height: 1.5; }
+
+  .step-row { display: grid; grid-template-columns: 140px 1fr 1fr; gap: 64px; padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.12); align-items: start; }
+  @media (max-width: 900px) { .step-row { grid-template-columns: 1fr; gap: 16px; } }
+  .step-row:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.12); }
+  .step-row .step-num { font-family: var(--f-display); font-weight: 900; font-size: 96px; color: var(--lime); letter-spacing: -0.04em; line-height: 0.9; }
+  @media (max-width: 900px) { .step-row .step-num { font-size: 64px; } }
+  .step-row h3 { color: var(--white); font-size: 32px; margin: 12px 0; }
+  .step-row p { color: rgba(255,255,255,0.76); font-size: 16px; line-height: 1.6; margin: 0; }
+  .step-row .when { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; color: var(--orange); text-transform: uppercase; }
+
+  /* Dashboard section — editorial */
+  .dash-ed { background: var(--lime); color: var(--ink); padding: 120px 0; }
+  .dash-ed h2 { color: var(--ink); }
+  .dash-ed .heading { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 64px; }
+  @media (max-width: 900px) { .dash-ed .heading { grid-template-columns: 1fr; } }
+  .dash-ed .heading p { color: var(--charcoal); font-size: 20px; line-height: 1.5; }
+  .dash-ed .big {
+    background: var(--ink); color: var(--white); border-radius: var(--radius-l);
+    padding: 48px; aspect-ratio: 21/9;
+    display: grid; grid-template-rows: auto 1fr auto; gap: 24px; position: relative; overflow: hidden;
+  }
+  .dash-ed .big::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, transparent 0 48px, rgba(255,255,255,0.04) 48px 49px, transparent 49px) repeat-x,
+      linear-gradient(to bottom, transparent 0 48px, rgba(255,255,255,0.04) 48px 49px, transparent 49px) repeat-y;
+    background-size: 48px 48px;
+  }
+  .dash-ed .top { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+  .dash-ed .top .l { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; color: var(--lime); text-transform: uppercase; }
+  .dash-ed .middle { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; align-items: end; position: relative; z-index: 1; }
+  .dash-ed .sig { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px; }
+  .dash-ed .sig .l { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lime); }
+  .dash-ed .sig .v { font-family: var(--f-display); font-weight: 800; font-size: 36px; color: var(--white); letter-spacing: -0.02em; margin-top: 6px; }
+  .dash-ed .sig .t { font-size: 12px; color: #9aff9a; margin-top: 4px; }
+  .dash-ed .score { display: flex; align-items: baseline; gap: 16px; position: relative; z-index: 1; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); }
+  .dash-ed .score .v { font-family: var(--f-display); font-weight: 900; font-size: 72px; color: var(--lime); letter-spacing: -0.03em; line-height: 0.9;}
+  .dash-ed .score .t { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+
+  /* Tools editorial */
+  .tools-ed { background: var(--paper); color: var(--ink); padding: 120px 0; }
+  .tools-ed h2 { color: var(--ink); }
+  .tools-list {
+    border-top: 1px solid var(--ink);
+  }
+  .tool-row {
+    display: grid; grid-template-columns: 80px 1fr 2fr 120px;
+    gap: 32px; padding: 32px 0;
+    border-bottom: 1px solid var(--ink);
+    align-items: center;
+    transition: background 0.15s ease, padding 0.2s ease;
+  }
+  @media (max-width: 900px) { .tool-row { grid-template-columns: 60px 1fr; gap: 20px; }  .tool-row .tool-desc, .tool-row .tool-arrow { grid-column: 1 / -1; } }
+  .tool-row:hover { background: var(--lime); padding-left: 16px; padding-right: 16px; }
+  .tool-row img { width: 48px; height: 48px; }
+  .tool-row .tool-name-row { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; color: var(--orange); text-transform: uppercase; margin-bottom: 4px; }
+  .tool-row .tool-title-row { font-family: var(--f-display); font-weight: 800; font-size: 28px; letter-spacing: -0.015em; color: var(--ink); }
+  .tool-row .tool-desc { color: #2A2A2A; font-size: 15px; line-height: 1.55; }
+  .tool-row .tool-arrow { font-family: var(--f-mono); font-size: 20px; color: var(--ink); text-align: right; }
+
+  /* Strategist editorial */
+  .strat-ed { background: var(--charcoal); color: var(--white); padding: 120px 0; }
+  .strat-ed .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  @media (max-width: 900px) { .strat-ed .grid { grid-template-columns: 1fr; } }
+  .strat-ed h2 { color: var(--white); font-size: clamp(36px, 5vw, 64px); }
+  .strat-ed p { color: rgba(255,255,255,0.82); font-size: 18px; line-height: 1.6; }
+  .strat-ed .photo {
+    aspect-ratio: 4/5;
+    background: var(--ink); border-radius: var(--radius-l);
+    position: relative; display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 40px; overflow: hidden;
+  }
+  .strat-ed .photo::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 30%, rgba(222,228,80,0.1) 0%, transparent 60%); }
+  .strat-ed .photo .tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; color: rgba(255,255,255,0.4); text-transform: uppercase; position: absolute; top: 28px; left: 28px; }
+  .strat-ed .photo .q { font-family: var(--f-display); font-weight: 800; font-size: 30px; line-height: 1.2; letter-spacing: -0.015em; position: relative; z-index: 1; }
+  .strat-ed .photo .q-by { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; color: var(--lime); text-transform: uppercase; margin-top: 16px; display: block; }
+
+  /* Plans editorial — single wide card w/ two streams visualised */
+  .plans-ed { background: var(--ink); color: var(--white); padding: 120px 0; }
+  .plans-ed h2 { color: var(--white); }
+  .plans-ed-head { text-align: center; max-width: 720px; margin: 0 auto 72px; }
+  .plans-ed-head p { color: rgba(255,255,255,0.7); font-size: 20px; line-height: 1.5; }
+  .plans-ed .row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border: 1px solid rgba(255,255,255,0.16); border-radius: var(--radius-l); overflow: hidden;
+  }
+  @media (max-width: 900px) { .plans-ed .row { grid-template-columns: 1fr; } }
+  .plan-ed {
+    padding: 44px 36px;
+    border-right: 1px solid rgba(255,255,255,0.16);
+  }
+  .plan-ed:last-child { border-right: none; }
+  @media (max-width: 900px) { .plan-ed { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.16); } }
+  .plan-ed.mid { background: var(--lime); color: var(--ink); }
+  .plan-ed .pn { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lime); margin-bottom: 12px; }
+  .plan-ed.mid .pn { color: var(--charcoal); }
+  .plan-ed h3 { font-family: var(--f-display); font-weight: 900; font-size: 36px; letter-spacing: -0.02em; line-height: 1.05; color: var(--white); margin: 0 0 8px; }
+  .plan-ed.mid h3 { color: var(--ink); }
+  .plan-ed .ps { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 32px; }
+  .plan-ed.mid .ps { color: var(--charcoal); }
+  .plan-ed .stream-line {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 14px 0; border-top: 1px dashed rgba(255,255,255,0.2);
+  }
+  .plan-ed.mid .stream-line { border-top-color: rgba(26,26,26,0.25); }
+  .plan-ed .stream-line:last-of-type { border-bottom: 1px dashed rgba(255,255,255,0.2); }
+  .plan-ed.mid .stream-line:last-of-type { border-bottom-color: rgba(26,26,26,0.25); }
+  .plan-ed .sl-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lime); }
+  .plan-ed.mid .sl-label { color: var(--orange); }
+  .plan-ed .sl-val { font-family: var(--f-display); font-weight: 800; font-size: 22px; letter-spacing: -0.01em; color: var(--white); }
+  .plan-ed.mid .sl-val { color: var(--ink); }
+  .plan-ed .total {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 20px 0; margin-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.28);
+  }
+  .plan-ed.mid .total { border-top-color: rgba(26,26,26,0.5); }
+  .plan-ed .total .tl { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+  .plan-ed.mid .total .tl { color: var(--charcoal); }
+  .plan-ed .total .tv { font-family: var(--f-display); font-weight: 900; font-size: 32px; letter-spacing: -0.02em; color: var(--white); }
+  .plan-ed.mid .total .tv { color: var(--ink); }
+
+  /* CTA editorial */
+  .cta-ed { padding: 160px 0; background: var(--ink); border-top: 1px solid #2a2a2a; }
+  .cta-ed h2 { color: var(--white); text-align: center; margin: 0 auto 32px; max-width: 20ch; font-size: clamp(48px, 8vw, 108px); letter-spacing: -0.035em; line-height: 0.98; }
+  .cta-ed h2 em { font-style: normal; background: var(--lime); color: var(--ink); padding: 0 0.16em; }
+  .cta-ed p { text-align: center; max-width: 52ch; margin: 0 auto 40px; color: rgba(255,255,255,0.74); font-size: 20px; line-height: 1.5; }
+  .cta-ed .btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<div class="micro-bar">
+  Mockup C · Editorial / bolder · ≈ 4–6 days dev time · <a href="../../index.html">← back to comparison</a>
+</div>
+
+<!-- TOPBAR =========================================================== -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="logo">
+      <img src="../../assets/logo-white.png" alt="GritFuel" style="height: 22px;">
+    </a>
+    <nav>
+      <a href="#what">What it is</a>
+      <a href="#how">How it works</a>
+      <a href="#tools">The system</a>
+      <a href="#plans">Plans</a>
+    </nav>
+    <a href="#cta" class="cta">Discovery →</a>
+  </div>
+</header>
+
+<!-- HERO ============================================================ -->
+<section class="hero-wrap">
+  <div class="hero-video">
+    <div class="placeholder-car">grit</div>
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">Human thinking. Relentless execution.</span>
+    <h1>The growth operating&nbsp;system.</h1>
+    <p class="lead">Strategy, execution and compounding intelligence — in one monthly subscription.</p>
+    <div style="display: flex; gap: 12px; margin-top: 44px; flex-wrap: wrap;">
+      <a href="#cta" class="btn primary">Book a discovery call</a>
+      <a href="#how" class="btn ghost">How it works →</a>
+    </div>
+    <div class="hero-meta">
+      <div class="mi"><div class="l">Category</div><div class="v">Growth OS · First of its kind</div></div>
+      <div class="mi"><div class="l">Cohort</div><div class="v">Cohort 1 · April 2026</div></div>
+      <div class="mi"><div class="l">Markets</div><div class="v">NL · ZA · EU</div></div>
+      <div class="mi"><div class="l">Approach</div><div class="v">Senior operators only</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATEMENT ======================================================= -->
+<section class="statement">
+  <div class="container">
+    <h2>We&rsquo;re not an&nbsp;agency. We&rsquo;re not a&nbsp;hire. <em>We&rsquo;re an operating&nbsp;system.</em></h2>
+  </div>
+</section>
+
+<!-- PILLARS (three cells) =========================================== -->
+<section class="pillars">
+  <div class="container">
+    <div class="grid">
+      <div class="pillar-cell">
+        <div class="num">01</div>
+        <h3>Strategy, executed</h3>
+        <p>Senior operators embed into your monthly rhythm. They own the plays, write the Playbook narrative, and are accountable for the Compound Score moving.</p>
+      </div>
+      <div class="pillar-cell">
+        <div class="num">02</div>
+        <h3>The system survives the month</h3>
+        <p>Dashboard. Playbook. Escalation Router. Credit Allocation. ALC Menu. Five tools that outlast any one person on any one side of the relationship.</p>
+      </div>
+      <div class="pillar-cell">
+        <div class="num">03</div>
+        <h3>Compounding, visibly</h3>
+        <p>Four signals feed one score every month. What worked rolls forward. What didn&rsquo;t gets archived with the reason. The story gets smarter, on the record.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS (dark editorial) =================================== -->
+<section class="how-ed" id="how">
+  <div class="container">
+    <div class="heading">
+      <h2>One monthly<br>rhythm.</h2>
+      <p>Every month begins with the Playbook — a one-page commitment to three plays. It ends with the Compound Score. In between: execution, measurement, and the system learning your business.</p>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">01</div>
+      <div>
+        <div class="when">Day 1 · Playbook drop</div>
+        <h3>Three plays, one page.</h3>
+      </div>
+      <p>Signed off at the start of the month — not the end. No hundred-slide deck. What we're running, why it moves the Compound Score, what we'll learn if it works or doesn't.</p>
+    </div>
+    <div class="step-row">
+      <div class="step-num">02</div>
+      <div>
+        <div class="when">Weeks 2–4 · Execution loop</div>
+        <h3>Ship. Measure. Escalate.</h3>
+      </div>
+      <p>Credits turn into deliverables from the ALC Menu. The Escalation Router pulls senior eyes in when speed needs judgement — not when it needs noise.</p>
+    </div>
+    <div class="step-row">
+      <div class="step-num">03</div>
+      <div>
+        <div class="when">Day 28 · Score in, next Playbook out</div>
+        <h3>The month compounds.</h3>
+      </div>
+      <p>Compound Score updates. Winners roll into next month's plays. Losers archived with the reason why. The story — your story — gets smarter, on the record, every month.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD (lime band) =========================================== -->
+<section class="dash-ed">
+  <div class="container">
+    <div class="heading">
+      <h2>One dashboard.<br>One score.<br>One direction.</h2>
+      <p>Four compounding signals — Demand, Conversion, Retention, Brand — weighted to your business. Everyone on your side and ours is looking at the same numbers, the same month, the same direction.</p>
+    </div>
+    <div class="big">
+      <div class="top">
+        <div class="l">// GROWTH DASHBOARD · COHORT 1 · APRIL 2026</div>
+        <div class="l">live</div>
+      </div>
+      <div class="middle">
+        <div class="sig"><div class="l">Demand</div><div class="v">72</div><div class="t">▲ +8 MoM</div></div>
+        <div class="sig"><div class="l">Conversion</div><div class="v">81</div><div class="t">▲ +4 MoM</div></div>
+        <div class="sig"><div class="l">Retention</div><div class="v">64</div><div class="t">▲ +12 MoM</div></div>
+        <div class="sig"><div class="l">Brand</div><div class="v">58</div><div class="t">▲ +5 MoM</div></div>
+      </div>
+      <div class="score">
+        <div class="v">68.7</div>
+        <div>
+          <div style="font-family: var(--f-display); font-weight: 800; font-size: 22px; color: var(--white); letter-spacing: -0.01em;">Compound Score</div>
+          <div class="t">▲ +7.2 vs March 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS (editorial rows) ========================================== -->
+<section class="tools-ed" id="tools">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 64px;">
+      <h2>Five tools.<br>One cadence.</h2>
+      <p style="color: #3A3A3A; font-size: 20px; line-height: 1.5;">Every client gets the same five tools from day one. They are the operating surface — where the work is shaped, shipped, measured, and compounded.</p>
+    </div>
+    <div class="tools-list">
+      <a href="#" class="tool-row">
+        <img src="../../assets/icons/signal.svg" alt="">
+        <div>
+          <div class="tool-name-row">01 · Intake</div>
+          <div class="tool-title-row">Onboarding Intake</div>
+        </div>
+        <div class="tool-desc">Structured scoping session that sets the first Playbook and the shape of your credit pool.</div>
+        <div class="tool-arrow">→</div>
+      </a>
+      <a href="#" class="tool-row">
+        <img src="../../assets/icons/system.svg" alt="">
+        <div>
+          <div class="tool-name-row">02 · Dashboard</div>
+          <div class="tool-title-row">Growth Dashboard</div>
+        </div>
+        <div class="tool-desc">Four signals, one Compound Score. The single source of truth for every meeting, every month.</div>
+        <div class="tool-arrow">→</div>
+      </a>
+      <a href="#" class="tool-row">
+        <img src="../../assets/icons/loop.svg" alt="">
+        <div>
+          <div class="tool-name-row">03 · Engine</div>
+          <div class="tool-title-row">Compounding Engine</div>
+        </div>
+        <div class="tool-desc">Turns last month's winners into next month's plays. Losers get archived with their reason why.</div>
+        <div class="tool-arrow">→</div>
+      </a>
+      <a href="#" class="tool-row">
+        <img src="../../assets/icons/control.svg" alt="">
+        <div>
+          <div class="tool-name-row">04 · Router</div>
+          <div class="tool-title-row">Escalation Router</div>
+        </div>
+        <div class="tool-desc">Pulls senior judgement in when it's needed — without blocking the day-to-day execution.</div>
+        <div class="tool-arrow">→</div>
+      </a>
+      <a href="#" class="tool-row">
+        <img src="../../assets/icons/execution.svg" alt="">
+        <div>
+          <div class="tool-name-row">05 · Credits</div>
+          <div class="tool-title-row">Credit Allocation</div>
+        </div>
+        <div class="tool-desc">Your monthly credit pool, resolved against a 153-item ALC Menu with full margin transparency.</div>
+        <div class="tool-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGIST (charcoal) =========================================== -->
+<section class="strat-ed">
+  <div class="container">
+    <div class="grid">
+      <div class="photo">
+        <span class="tag">Photo · Strategist · editorial portrait</span>
+        <div class="q">
+          "The OS does the carrying. The Strategist does the judging."
+          <span class="q-by">— How GritFuel is designed to work</span>
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow" style="color: var(--lime);">The human layer</span>
+        <h2>The Strategist is the judgement layer on top of the system.</h2>
+        <p>A senior operator who owns the client relationship, picks the plays, writes the Playbook narrative, and is accountable for the Compound Score moving.</p>
+        <p>The OS handles the cadence, the data, the routing and the credits. The Strategist handles the calls the system can't make — which play to prioritise, when to escalate, when to kill a loser, how to frame a win.</p>
+        <p style="color: rgba(255,255,255,0.5); font-size: 14px; font-family: var(--f-mono); letter-spacing: 0.08em; margin-top: 32px;">Core: 1 Strategist &middot; Growth: CMO + 1 Strategist &middot; Performance: CMO + 2 Strategists</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS (editorial) ============================================= -->
+<section class="plans-ed" id="plans">
+  <div class="container">
+    <div class="plans-ed-head">
+      <span class="eyebrow" style="color: var(--lime);">Plans</span>
+      <h2>Two streams.<br>One&nbsp;contract.</h2>
+      <p>A fixed subscription for the operating system. A credit pool for the work. Every line on the ALC Menu priced, deliverable, and margin-transparent.</p>
+    </div>
+
+    <div class="row">
+      <div class="plan-ed">
+        <div class="pn">Core</div>
+        <h3>Clarity.<br>Traction.<br>Control.</h3>
+        <p class="ps">Disciplined focus. Month-on-month commercial lift.</p>
+        <div class="stream-line"><span class="sl-label">Subscription</span><span class="sl-val">€3,500/mo</span></div>
+        <div class="stream-line"><span class="sl-label">Credits</span><span class="sl-val">€5,000/mo</span></div>
+        <div class="total"><span class="tl">All-in</span><span class="tv">€8,500</span></div>
+      </div>
+      <div class="plan-ed mid">
+        <div class="pn">Growth · most common</div>
+        <h3>Repeatability.<br>Optimisation.<br>Expansion.</h3>
+        <p class="ps">Scalable engine. Test-and-learn at pace.</p>
+        <div class="stream-line"><span class="sl-label">Subscription</span><span class="sl-val">€5,250/mo</span></div>
+        <div class="stream-line"><span class="sl-label">Credits</span><span class="sl-val">€8,000/mo</span></div>
+        <div class="total"><span class="tl">All-in</span><span class="tv">€13,250</span></div>
+      </div>
+      <div class="plan-ed">
+        <div class="pn">Performance</div>
+        <h3>Acceleration.<br>Market expansion.<br>Efficiency at scale.</h3>
+        <p class="ps">Full operating-system depth, orchestrated.</p>
+        <div class="stream-line"><span class="sl-label">Subscription</span><span class="sl-val">€8,000/mo</span></div>
+        <div class="stream-line"><span class="sl-label">Credits</span><span class="sl-val">€12,000/mo+</span></div>
+        <div class="total"><span class="tl">All-in</span><span class="tv">€20,000+</span></div>
+      </div>
+    </div>
+
+    <p style="text-align: center; color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 32px;">
+      All plans include the Dashboard, Playbook, Strategist, Escalation Router &middot; <a href="#" style="color: var(--lime); border-bottom: 1px dashed; padding-bottom: 1px;">See the ALC Menu (153 services) →</a>
+    </p>
+  </div>
+</section>
+
+<!-- CTA ========================================================== -->
+<section class="cta-ed" id="cta">
+  <div class="container">
+    <h2>Growth that&nbsp;compounds. <em>Visibly.</em></h2>
+    <p>A 30-minute discovery call. We leave you with a scored read of your current growth engine and a preview of what the first Playbook would look like.</p>
+    <div class="btns">
+      <a href="#" class="btn primary">Book a discovery call →</a>
+      <a href="#" class="btn ghost">See the Brand Guide</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER ======================================================= -->
+<footer class="site-footer" style="background: #111;">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-tag">Growth that<br>compounds.<br>Visibly.</div>
+        <p style="color: #888; font-size: 13.5px; margin-top: 20px;">GritFuel OS — the first Growth Operating System.<br>GritFuel BV · Netherlands.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Monthly Playbook</a></li>
+          <li><a href="#">ALC Menu (153)</a></li>
+          <li><a href="#">Compound Score</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Team</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@gritfuel.works">hello@gritfuel.works</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Imprint</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 GritFuel BV &middot; gritfuel.works &middot; Human thinking. Relentless execution.</span>
+      <span style="font-family: var(--f-mono); letter-spacing: 0.14em; text-transform: uppercase;">The growth operating system.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

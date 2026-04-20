@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+<rect width="1600" height="900" fill="#1A1A1A"/>
+<text x="96" y="96" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="18" fill="#DEE450" letter-spacing="4" text-anchor="start">STEP 03 · COMPOUND</text>
+<text x="96" y="190" font-family="Montserrat Thin" font-weight="200" font-style="normal" font-size="100" fill="rgb(170,170,170)" letter-spacing="0" text-anchor="start">Each month</text>
+<text x="96" y="300" font-family="Montserrat Thin" font-weight="900" font-style="normal" font-size="100" fill="#FFFFFF" letter-spacing="0" text-anchor="start">builds on the last.</text>
+<line x1="325" y1="742" x2="1275" y2="742" stroke="#EAEAEA" stroke-width="2" stroke-linecap="square"/>
+<rect x="345" y="620" width="110" height="120" fill="rgb(45,45,45)" stroke="#EAEAEA" stroke-width="2"/>
+<text x="400" y="780" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="18" fill="rgb(170,170,170)" letter-spacing="2" text-anchor="middle">M01</text>
+<text x="400" y="604" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="16" fill="rgb(170,170,170)" letter-spacing="0" text-anchor="middle">+10</text>
+<rect x="505" y="596" width="110" height="144" fill="rgb(45,45,45)" stroke="#EAEAEA" stroke-width="2"/>
+<text x="560" y="780" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="18" fill="rgb(170,170,170)" letter-spacing="2" text-anchor="middle">M02</text>
+<text x="560" y="580" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="16" fill="rgb(170,170,170)" letter-spacing="0" text-anchor="middle">+18</text>
+<rect x="665" y="568" width="110" height="172" fill="rgb(45,45,45)" stroke="#EAEAEA" stroke-width="2"/>
+<text x="720" y="780" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="18" fill="rgb(170,170,170)" letter-spacing="2" text-anchor="middle">M03</text>
+<text x="720" y="552" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="16" fill="rgb(170,170,170)" letter-spacing="0" text-anchor="middle">+26</text>
+<rect x="825" y="533" width="110" height="207" fill="#FC4E2B" stroke="#FC4E2B" stroke-width="2"/>
+<text x="880" y="780" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="18" fill="rgb(170,170,170)" letter-spacing="2" text-anchor="middle">M04</text>
+<text x="880" y="517" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="16" fill="#FC4E2B" letter-spacing="0" text-anchor="middle">+34</text>
+<rect x="852" y="465" width="56" height="22" fill="#FC4E2B"/>
+<text x="880" y="481" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="12" fill="#FFFFFF" letter-spacing="3" text-anchor="middle">NOW</text>
+<rect x="985" y="492" width="110" height="248" fill="rgb(45,45,45)" stroke="#EAEAEA" stroke-width="2"/>
+<text x="1040" y="780" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="18" fill="rgb(170,170,170)" letter-spacing="2" text-anchor="middle">M05</text>
+<text x="1040" y="476" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="16" fill="rgb(170,170,170)" letter-spacing="0" text-anchor="middle">+42</text>
+<rect x="1145" y="442" width="110" height="298" fill="rgb(45,45,45)" stroke="#EAEAEA" stroke-width="2"/>
+<text x="1200" y="780" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="18" fill="rgb(170,170,170)" letter-spacing="2" text-anchor="middle">M06</text>
+<text x="1200" y="426" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="16" fill="rgb(170,170,170)" letter-spacing="0" text-anchor="middle">+50</text>
+<polyline points="400,620 560,596 720,568 880,533 1040,492 1200,442" fill="none" stroke="#FC4E2B" stroke-width="3" stroke-dasharray="6,6" opacity="0.45"/>
+<text x="96" y="840" font-family="JetBrains Mono" font-weight="500" font-style="normal" font-size="14" fill="rgb(170,170,170)" letter-spacing="3" text-anchor="start">COMPOUND SCORE · GROWTH THAT COMPOUNDS. VISIBLY.</text>
+</svg>

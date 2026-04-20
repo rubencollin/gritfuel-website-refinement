@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>gritfuel.works · Developer Brief · v2</title>
+<style>
+  :root {
+    --ink: #1A1A1A; --charcoal: #3C3C3C;
+    --gray-700: #4A4A4A; --gray-500: #7A7A7A; --gray-300: #BFBFBF; --gray-200: #E2E2DE; --gray-100: #EFEFEA;
+    --paper: #FAFAF7; --white: #FFFFFF;
+    --lime: #DEE450; --orange: #FC4E2B;
+    --f-display: "Montserrat", "Arial Black", sans-serif;
+    --f-body: "Inter", -apple-system, "Segoe UI", sans-serif;
+    --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; border-radius: 0 !important; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: var(--f-body); font-size: 15px; line-height: 1.55; color: var(--ink); background: var(--paper); -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+  .eyebrow { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gray-500); }
+  .eyebrow .num { color: var(--orange); }
+  h1, h2, h3 { font-family: var(--f-display); letter-spacing: -0.015em; margin: 0; }
+  h1 { font-weight: 900; font-size: clamp(36px, 4.8vw, 60px); line-height: 1.02; }
+  h2 { font-weight: 800; font-size: 30px; line-height: 1.1; }
+  h3 { font-weight: 700; font-size: 17px; line-height: 1.3; }
+  code { font-family: var(--f-mono); font-size: 12px; background: var(--gray-100); padding: 2px 8px; color: var(--ink); }
+
+  .topbar { background: var(--ink); color: var(--paper); border-bottom: 6px solid var(--lime); padding: 12px 0; }
+  .topbar .wrap { display: flex; justify-content: space-between; align-items: center; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; }
+  .topbar .right { color: var(--lime); }
+
+  .hero { padding: 72px 0 56px; }
+  .hero .eyebrow { margin-bottom: 20px; }
+  .hero h1 { margin-bottom: 24px; }
+  .hero .lead { max-width: 62ch; color: var(--charcoal); font-size: 17px; line-height: 1.6; }
+  .hero .lead b { color: var(--ink); }
+  .meta { display: grid; grid-template-columns: repeat(4, 1fr); border: 2px solid var(--ink); margin-top: 48px; }
+  .meta .cell { padding: 24px; border-right: 1px solid var(--ink); }
+  .meta .cell:last-child { border-right: none; }
+  .meta .lbl { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-500); margin-bottom: 10px; }
+  .meta .val { font-family: var(--f-display); font-weight: 900; font-size: 24px; line-height: 1.15; color: var(--ink); }
+
+  section.blk { padding: 64px 0; border-top: 1px solid var(--gray-200); }
+  section.blk .eyebrow { margin-bottom: 10px; }
+  section.blk h2 { margin-bottom: 8px; max-width: 28ch; }
+  section.blk .where { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray-700); margin-top: 14px; padding-bottom: 24px; border-bottom: 1px solid var(--gray-200); display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  section.blk .where code { font-size: 11px; }
+  section.blk .where .mins { background: var(--ink); color: var(--lime); padding: 3px 10px; font-size: 10px; margin-left: auto; letter-spacing: 0.18em; }
+
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; }
+  .pair .col { padding: 24px; }
+  .pair .col.current { background: var(--gray-100); color: var(--gray-700); }
+  .pair .col.new { border: 2px solid var(--ink); background: var(--white); }
+  .pair .tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; display: inline-block; padding: 4px 10px; margin-bottom: 16px; }
+  .pair .col.current .tag { background: var(--gray-300); color: var(--ink); }
+  .pair .col.new .tag { background: var(--ink); color: var(--lime); }
+  .pair .body { font-family: var(--f-display); font-weight: 700; font-size: 20px; line-height: 1.3; }
+  .pair .col.new .body { color: var(--ink); font-weight: 800; }
+  .pair .body.sm { font-size: 17px; }
+  .pair .body.xs { font-family: var(--f-body); font-size: 15px; font-weight: 500; line-height: 1.55; }
+
+  .single { background: var(--white); border: 2px solid var(--ink); padding: 24px; margin-top: 28px; }
+  .single .body { font-family: var(--f-display); font-weight: 800; font-size: 20px; line-height: 1.3; margin-bottom: 8px; }
+  .single .note { color: var(--charcoal); font-size: 14px; }
+
+  /* Image current/new pair */
+  .img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; }
+  .img-pair .box { padding: 14px; }
+  .img-pair .box.current { background: var(--gray-100); }
+  .img-pair .box.new { border: 2px solid var(--ink); background: var(--white); }
+  .img-pair .box .tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; display: inline-block; padding: 4px 10px; margin-bottom: 12px; }
+  .img-pair .box.current .tag { background: var(--gray-300); color: var(--ink); }
+  .img-pair .box.new .tag { background: var(--ink); color: var(--lime); }
+  .img-pair .placeholder { background: var(--gray-200); aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; color: var(--gray-500); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; border: 1px dashed var(--gray-500); text-align: center; padding: 16px; }
+  .img-pair a.thumb { display: block; text-decoration: none; position: relative; }
+  .img-pair a.thumb img { border: 1px solid var(--ink); display: block; }
+  .img-pair a.thumb .openbar { margin-top: 10px; display: flex; justify-content: space-between; align-items: center; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; }
+  .img-pair a.thumb .openbar .lnk { background: var(--ink); color: var(--lime); padding: 6px 12px; }
+  .img-pair a.thumb .openbar .dim { color: var(--gray-500); }
+
+  /* Standalone image block */
+  .img-block { margin-top: 28px; background: var(--white); border: 2px solid var(--ink); }
+  .img-block a { display: block; text-decoration: none; }
+  .img-block a img { width: 100%; display: block; }
+  .img-block .caption { padding: 14px 20px; border-top: 1px solid var(--ink); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .img-block .caption .file { color: var(--gray-700); }
+  .img-block .caption .lnk { background: var(--ink); color: var(--lime); padding: 6px 12px; font-size: 10px; }
+
+  table.punch { width: 100%; border-collapse: collapse; margin-top: 32px; border: 2px solid var(--ink); background: var(--white); }
+  table.punch th, table.punch td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--gray-200); font-size: 14px; vertical-align: top; }
+  table.punch th { background: var(--ink); color: var(--lime); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; }
+  table.punch .n { color: var(--orange); font-family: var(--f-mono); font-size: 12px; width: 40px; }
+  table.punch .t { color: var(--gray-700); font-family: var(--f-mono); font-size: 12px; width: 80px; white-space: nowrap; }
+  table.punch tr:last-child td { border-bottom: none; }
+  table.punch tr.total td { background: var(--lime); font-weight: 700; font-family: var(--f-display); font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; border-top: 2px solid var(--ink); }
+
+  .icon-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 14px; margin-top: 28px; }
+  .icon-grid a { display: block; text-decoration: none; background: var(--white); border: 1px solid var(--gray-300); padding: 16px; text-align: center; color: inherit; }
+  .icon-grid a.new { border: 2px solid var(--ink); background: #FFFDF8; }
+  .icon-grid a img { width: 40px; height: 40px; margin: 0 auto 10px; }
+  .icon-grid a .name { font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); }
+  .icon-grid a .flag { font-family: var(--f-mono); font-size: 8px; letter-spacing: 0.18em; color: var(--orange); margin-top: 4px; }
+
+  .rules { background: var(--ink); color: var(--paper); padding: 56px 0; margin-top: 48px; }
+  .rules h2 { color: var(--lime); margin-bottom: 24px; }
+  .rules .eyebrow { color: var(--lime); margin-bottom: 14px; }
+  .rules ul { list-style: none; padding: 0; margin: 0; }
+  .rules li { padding: 18px 0; border-bottom: 1px solid #2A2A2A; display: grid; grid-template-columns: 42px 1fr; gap: 16px; }
+  .rules li:last-child { border-bottom: none; }
+  .rules .mk { font-family: var(--f-mono); font-size: 11px; color: var(--lime); letter-spacing: 0.14em; }
+  .rules li h3 { color: var(--paper); margin-bottom: 6px; font-size: 15px; }
+  .rules li .d { color: #C5C5C0; font-size: 14px; line-height: 1.55; }
+  .rules li .d b { color: var(--paper); }
+  .rules li .d .mark-lime { background: var(--lime); color: var(--ink); padding: 0 6px; font-weight: 700; }
+  .rules li .d .mark-orange { background: var(--orange); color: var(--paper); padding: 0 6px; font-weight: 700; }
+  .rules li .d .mark-ink { background: var(--paper); color: var(--ink); padding: 0 6px; font-weight: 700; }
+
+  .checklist { background: var(--white); border: 2px solid var(--ink); padding: 32px; margin-top: 32px; }
+  .checklist h3 { font-size: 20px; margin-bottom: 16px; }
+  .checklist ol { list-style: none; padding: 0; margin: 0; counter-reset: step; }
+  .checklist ol li { padding: 12px 0 12px 44px; position: relative; counter-increment: step; border-bottom: 1px solid var(--gray-200); font-size: 14.5px; }
+  .checklist ol li:last-child { border-bottom: none; }
+  .checklist ol li::before { content: counter(step, decimal-leading-zero); position: absolute; left: 0; top: 14px; font-family: var(--f-mono); font-size: 11px; background: var(--lime); color: var(--ink); padding: 2px 6px; letter-spacing: 0.1em; }
+
+  footer { background: var(--ink); color: var(--gray-300); padding: 40px 0; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+  @media (max-width: 760px) {
+    .meta { grid-template-columns: 1fr 1fr; }
+    .meta .cell { border-right: none; border-bottom: 1px solid var(--ink); }
+    .pair, .img-pair { grid-template-columns: 1fr; }
+    .icon-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>gritfuel.works · dev brief · for taffy &amp; fidel</span>
+    <span class="right">handoff · mon 20 apr am · go-live · mon 20 apr cob</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">refinement brief · for taffy &amp; fidel</div>
+    <h1>Section-by-section walk.<br>Current site, then new copy.</h1>
+    <p class="lead">
+      <b>Taffy &amp; Fidel —</b> this is not a rebuild. Keep the current site structure, CMS bindings, and section IDs exactly as they are.
+      Swap the copy, icons, and illustrations listed below. Locations follow the live-site scroll order.
+      Visual styling rules (bold / highlighted accents) are documented once, at the end of the brief.
+      <br><br>
+      <b>Visual assets:</b> click any image or icon to open a full-size viewer in a new window — right-click from there to save.
+      <br><br>
+      <b style="background: var(--orange); color: var(--paper); padding: 2px 8px;">SAME-DAY SHIP ·</b>
+      dev handoff <b>Monday 20 April, AM (today)</b> — go-live <b>Monday 20 April, COB (today)</b>.
+      One working day. Focus on the 12 copy swaps + 2 illustration swaps first; the new statement band (Section 14) and the optional icons / OG tile ship only if time allows.
+    </p>
+
+    <div class="meta">
+      <div class="cell"><div class="lbl">Scope</div><div class="val">12 copy swaps<br>+ 2 image swaps<br>+ 1 new band<br>+ 1 audit</div></div>
+      <div class="cell"><div class="lbl">Optional assets</div><div class="val">14 icons<br>+ 1 OG tile</div></div>
+      <div class="cell"><div class="lbl">Dev handoff</div><div class="val" style="color: var(--orange);">MON 20 APR<br>AM · NOW</div></div>
+      <div class="cell"><div class="lbl">Go-live</div><div class="val" style="color: var(--orange);">MON 20 APR<br>COB · TODAY</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" style="padding-top: 32px;">
+  <div class="wrap">
+    <div class="eyebrow">summary</div>
+    <h2>Punch list.</h2>
+    <table class="punch">
+      <thead>
+        <tr><th class="n">#</th><th>Where on the live site</th><th>Change</th><th class="t">Time</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="n">01</td><td>Hero</td><td>H1 + subline + CTA labels</td><td class="t">13 min</td></tr>
+        <tr><td class="n">02</td><td>Operating-model band</td><td>Closing line extended</td><td class="t">3 min</td></tr>
+        <tr><td class="n">03</td><td>Hero tabs (3)</td><td>Tab labels retitled</td><td class="t">6 min</td></tr>
+        <tr><td class="n">04</td><td>Lime band (sub-head + 01/02/03 cards)</td><td>Sub-head + card copy</td><td class="t">10 min</td></tr>
+        <tr><td class="n">05</td><td>How It Works · step 02 title</td><td>Retitle</td><td class="t">3 min</td></tr>
+        <tr><td class="n">06</td><td>How It Works · step 03 illustration</td><td>Swap arrow → compound stair-step</td><td class="t">20 min</td></tr>
+        <tr><td class="n">07</td><td>"Where We Create Impact" lime band</td><td>Swap gear → dashboard cluster</td><td class="t">20 min</td></tr>
+        <tr><td class="n">08</td><td>Plan cards (Core / Growth / Performance)</td><td>Terminology + 153-item consolidation</td><td class="t">37 min</td></tr>
+        <tr><td class="n">09</td><td>Closing CTA band</td><td>Copy swap</td><td class="t">3 min</td></tr>
+        <tr><td class="n">10</td><td>Footer · under logo</td><td>Add tagline</td><td class="t">5 min</td></tr>
+        <tr><td class="n">11</td><td>Team section</td><td>Role titles: "Brand Strategist" → "Strategist"</td><td class="t">5 min</td></tr>
+        <tr><td class="n">12</td><td>Footer nav</td><td>"Services &amp; Plans" → "Plans"</td><td class="t">5 min</td></tr>
+        <tr><td class="n">13</td><td>"Trusted by bold brands" logo bar</td><td>Audit — prune ended engagements</td><td class="t">10 min</td></tr>
+        <tr><td class="n">14</td><td>NEW band · between Plans &amp; Proof</td><td>Statement band · "Growth that compounds. Visibly." (full-bleed)</td><td class="t">30 min</td></tr>
+        <tr><td class="n">—</td><td colspan="2"><b>Optional — new icon set + LinkedIn OG hero tile</b> (assets supplied)</td><td class="t">40 min</td></tr>
+        <tr class="total"><td></td><td>Total core dev time</td><td></td><td class="t">~3h 05m</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- BUILD PRINCIPLES · full-width + 90° corners -->
+<section class="blk" style="background: var(--ink); color: var(--paper); border-top: none;">
+  <div class="wrap">
+    <div class="eyebrow" style="color: var(--lime);">before you start · non-negotiable</div>
+    <h2 style="color: var(--lime); max-width: 36ch;">Full-width. 90° corners. No exceptions.</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px;">
+      <div style="background: #2A2A2A; padding: 24px; border-left: 4px solid var(--lime);">
+        <div style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lime); margin-bottom: 12px;">Layout</div>
+        <h3 style="color: var(--paper); font-size: 18px; margin-bottom: 10px;">Full-width website.</h3>
+        <p style="color: #C5C5C0; font-size: 14px; line-height: 1.55;">Hero video and all hero imagery sit <b style="color: var(--paper);">edge-to-edge</b>. No max-width container on the video element. No left/right gutters on hero-band images. Content rows stay in the 1120–1200px content column; media rows go full-bleed.</p>
+      </div>
+      <div style="background: #2A2A2A; padding: 24px; border-left: 4px solid var(--orange);">
+        <div style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--orange); margin-bottom: 12px;">Corners</div>
+        <h3 style="color: var(--paper); font-size: 18px; margin-bottom: 10px;">No rounded corners. Anywhere.</h3>
+        <p style="color: #C5C5C0; font-size: 14px; line-height: 1.55;">Hero video: <code style="background: #1A1A1A; color: var(--paper); padding: 2px 6px;">border-radius: 0</code>. Every image, tile, card, button, input, avatar — <b style="color: var(--paper);">radius 0</b>. If a Webflow component ships with a default radius, override. Run a radius audit after import.</p>
+      </div>
+    </div>
+    <p style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lime); margin-top: 28px;">full detail in rules R6 &amp; R8 at the end of this brief.</p>
+  </div>
+</section>
+
+<!-- 01 · HERO -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">01</span> · hero</div>
+    <h2>Hero block.</h2>
+
+    <div class="where"><span>H1 · hero headline</span><code>index.html</code><code>&lt;h1 class="hero__title"&gt;</code><span class="mins">5 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body">The Embedded Growth Engine for Start-ups and Scale-ups</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body">The growth operating system for founders ready to scale.</p></div>
+    </div>
+
+    <div class="where"><span>Subline · under H1</span><code>&lt;p class="hero__sub"&gt;</code><span class="mins">5 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body sm">Not an agency. Not an internal hire. A structured growth operating partner.</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body sm">One monthly cadence. One score. Senior operators embedded in your business — backed by a system that learns your numbers and compounds what works.</p></div>
+    </div>
+
+    <div class="where"><span>CTA buttons (2)</span><code>.hero__cta</code><span class="mins">3 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body sm">Start the Conversation &nbsp;·&nbsp; Choose Your Engine</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body sm">Book a discovery call &nbsp;·&nbsp; See the plans</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · OPERATING MODEL BAND -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">02</span> · operating-model band</div>
+    <h2>Closing line, extended.</h2>
+
+    <div class="where"><span>Closing line of the operating-model band</span><code>index.html</code><span class="mins">3 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body sm">This isn't campaign management. It's a growth operating model.</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body sm">This isn't campaign management. It's a growth operating model. One Playbook. One Dashboard. One Score that gets smarter every month.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · TABS -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">03</span> · hero tabs</div>
+    <h2>Three tab labels.</h2>
+
+    <div class="where"><span>Tab 1</span><code>.hero__tab--1</code><span class="mins">2 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body">ONE MONTHLY PLAN</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body">ONE MONTHLY PLAYBOOK</p></div>
+    </div>
+
+    <div class="where"><span>Tab 2</span><code>.hero__tab--2</code><span class="mins">2 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body">A SENIOR EMBEDDED TEAM</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body">SENIOR OPERATORS, NOT JUNIORS</p></div>
+    </div>
+
+    <div class="where"><span>Tab 3</span><code>.hero__tab--3</code><span class="mins">2 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body">ZERO FLUFF</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body">ZERO FLUFF. ONE SCORE.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 · LIME BAND -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">04</span> · lime band (where we create impact)</div>
+    <h2>Sub-headline + 01/02/03 cards.</h2>
+
+    <div class="where"><span>Sub-headline</span><code>.lime-band__sub</code><span class="mins">2 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body sm">Learn &gt; Refine &gt; Scale &gt; Repeat.</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body sm">Learn → Refine → Scale → Compound.</p></div>
+    </div>
+
+    <div class="where"><span>01 / 02 / 03 cards (three short lines)</span><code>.lime-band__cards</code><span class="mins">8 min</span></div>
+    <div class="pair">
+      <div class="col current">
+        <span class="tag">Current · live</span>
+        <p class="body xs"><b>01</b> · Signal over noise<br><b>02</b> · Structure over chaos<br><b>03</b> · Compounding over sprints</p>
+      </div>
+      <div class="col new">
+        <span class="tag">New</span>
+        <p class="body xs"><b>01</b> · One score, not ten dashboards.<br><b>02</b> · One Playbook, signed off monthly.<br><b>03</b> · What works rolls forward. What doesn't gets archived.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 · STEP 02 TITLE -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">05</span> · how it works · step 02</div>
+    <h2>Step 02 title.</h2>
+
+    <div class="where"><span>Step 02 · title (under the numbered "02" mark)</span><code>.how__step--2 h3</code><span class="mins">3 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body">Build the Growth Playbook</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body">Sign off the Monthly Playbook</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 · STEP 03 ILLUSTRATION -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">06</span> · how it works · step 03 · illustration swap</div>
+    <h2>Orange arrow → compound stair-step.</h2>
+
+    <div class="where"><span>Step 03 illustration · replaces the upward arrow</span><code>assets/illustrations/step03-compound.png</code><span class="mins">20 min</span></div>
+    <div class="img-pair">
+      <div class="box current">
+        <span class="tag">Current · live</span>
+        <div class="placeholder">Orange upward-arrow illustration<br>(keep "03" numbered mark in place)</div>
+      </div>
+      <div class="box new">
+        <span class="tag">New · supplied</span>
+        <a class="thumb" href="assets/viewer/step03.html" target="_blank" rel="noopener">
+          <img src="assets/illustrations/step03-compound.png" alt="Step 03 — compound stair-step illustration">
+          <div class="openbar"><span class="dim">1600 × 900 · PNG</span><span class="lnk">Open → download ↗</span></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 · LIME BAND IMAGERY -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">07</span> · "where we create impact" lime band · imagery swap</div>
+    <h2>Gear/cog → dashboard cluster.</h2>
+
+    <div class="where"><span>Illustration next to the lime band headline</span><code>assets/illustrations/dashboard-cluster.png</code><span class="mins">20 min</span></div>
+    <div class="img-pair">
+      <div class="box current">
+        <span class="tag">Current · live</span>
+        <div class="placeholder">Gear / cog illustration<br>(OS framing contradicts mechanical metaphor)</div>
+      </div>
+      <div class="box new">
+        <span class="tag">New · supplied</span>
+        <a class="thumb" href="assets/viewer/dashboard-cluster.html" target="_blank" rel="noopener">
+          <img src="assets/illustrations/dashboard-cluster.png" alt="Dashboard cluster illustration">
+          <div class="openbar"><span class="dim">1600 × 1000 · PNG</span><span class="lnk">Open → download ↗</span></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 · PLAN CARDS -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">08</span> · plan cards (core / growth / performance)</div>
+    <h2>Terminology swaps. No pricing, no layout change.</h2>
+    <p style="color: var(--charcoal); margin-top: 8px; max-width: 62ch;">
+      All three cards already show the right structure. These are copy-level swaps.
+      The 153-item line is consolidated to trim repeated text per card.
+    </p>
+
+    <div class="where"><span>All 3 cards · section label</span><code>.plan__seg--system</code><span class="mins">3 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body">ALWAYS INCLUDED</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body">THE SYSTEM · ALWAYS INCLUDED</p></div>
+    </div>
+
+    <div class="where"><span>All 3 cards · section label</span><code>.plan__seg--spec</code><span class="mins">3 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body">DIRECT SPECIALIST INVOLVEMENT</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body">SPECIALISTS ON THE BENCH</p></div>
+    </div>
+
+    <div class="where"><span>Core feature list · line 1</span><code>.plan__features li:nth-child(1)</code><span class="mins">2 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body sm">Monthly Growth Playbook</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body sm">Monthly Playbook</p></div>
+    </div>
+
+    <div class="where"><span>Core feature list · line 3</span><code>.plan__features li:nth-child(3)</code><span class="mins">2 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body sm">Dedicated lead strategist</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body sm">Dedicated Strategist</p></div>
+    </div>
+
+    <div class="where"><span>Core feature list · line 4</span><code>.plan__features li:nth-child(4)</code><span class="mins">2 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body sm">Compounding growth engine</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body sm">Compound Score</p></div>
+    </div>
+
+    <div class="where"><span>Core feature list · line 5</span><code>.plan__features li:nth-child(5)</code><span class="mins">2 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body sm">Ongoing brand &amp; messaging guidance</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body sm">Ongoing brand &amp; messaging input</p></div>
+    </div>
+
+    <div class="where"><span>Core feature list · line 6</span><code>.plan__features li:nth-child(6)</code><span class="mins">2 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body sm">Specialist input via your lead strategist</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body sm">Specialist input routed by your Strategist</p></div>
+    </div>
+
+    <div class="where"><span>Growth card · "Everything in Core, plus"</span><code>.plan--growth .plan__features li</code><span class="mins">3 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body sm">Fractional CMO oversight</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body sm">CMO-level oversight from your Strategist</p></div>
+    </div>
+
+    <div class="where"><span>Core / Growth · credits rows (playbook reference)</span><code>.plan__credits em</code><span class="mins">3 min</span></div>
+    <div class="pair">
+      <div class="col current">
+        <span class="tag">Current · live</span>
+        <p class="body xs">Core: "…agreed in your monthly playbook"<br>Growth: "…directed by your monthly playbook"</p>
+      </div>
+      <div class="col new">
+        <span class="tag">New</span>
+        <p class="body xs">Core: "…agreed in your Playbook"<br>Growth: "…directed by your Playbook"</p>
+      </div>
+    </div>
+
+    <div class="where"><span>All 3 cards · 153-item line (consolidation)</span><code>.plan__menu-note</code><span class="mins">15 min</span></div>
+    <div class="pair">
+      <div class="col current">
+        <span class="tag">Current · live</span>
+        <p class="body xs">Long paragraph appearing <b>twice per card</b>: "Credits unlock any service from our full 153-item menu — including paid media, brand identity, SEO, web builds, and more…"</p>
+      </div>
+      <div class="col new">
+        <span class="tag">New</span>
+        <p class="body xs">One-line condensed, <b>once per card</b>: "Credits unlock any service from the 153-item ALC Menu." + single <code>Explore the menu →</code> link per card.</p>
+      </div>
+    </div>
+
+    <!-- VISUAL RENDER · THE THREE PLAN CARDS (TARGET STATE) -->
+    <div style="margin-top: 56px; padding-top: 40px; border-top: 1px dashed var(--gray-300);">
+      <div class="eyebrow" style="margin-bottom: 10px;"><span class="num">08 · target render</span> · what the cards look like post-swap</div>
+      <h2 style="max-width: 38ch; margin-bottom: 8px;">The three plans. Post-swap terminology.</h2>
+      <p style="color: var(--charcoal); max-width: 62ch; margin-top: 8px; margin-bottom: 28px;">
+        Cards below use the <b>same structure as pricing_v7</b> — credit capacity, fixed inclusions, credits-fund list, specialist involvement, tagline, CTA. Copy reflects every terminology swap from the table above.
+        Keep existing Webflow card component; edit text nodes only. <b>90° corners throughout</b> — no radius on cards, credit band, CTA buttons.
+      </p>
+
+      <style>
+        .plancards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; align-items: stretch; margin-top: 8px; }
+        .plancards .pc { background: var(--white); border: 2px solid var(--ink); display: flex; flex-direction: column; }
+        .plancards .pc.featured { background: var(--ink); color: var(--paper); }
+        .plancards .pc.featured .pc-name, .plancards .pc.featured .pc-sub { color: var(--gray-300); }
+        .plancards .pc.featured .pc-headline { color: var(--paper); }
+        .plancards .pc.featured .pc-band { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+        .plancards .pc.featured .pc-block { background: #2A2A2A; border-color: #2A2A2A; }
+        .plancards .pc.featured .pc-block .pc-sess-name, .plancards .pc.featured .pc-block .pc-val { color: var(--paper); }
+        .plancards .pc.featured .pc-block .pc-sess-cad, .plancards .pc.featured .pc-block .pc-unit { color: var(--gray-300); }
+        .plancards .pc.featured .pc-section { border-color: #2A2A2A; }
+        .plancards .pc.featured .pc-section .pc-hdr { color: var(--lime); }
+        .plancards .pc.featured .pc-section li { color: var(--paper); }
+        .plancards .pc.featured .pc-note { color: var(--gray-300); }
+        .plancards .pc.featured .pc-cred-more { background: #2A2A2A; border-color: #444; color: var(--gray-300); }
+        .plancards .pc.featured .pc-tagline { color: var(--paper); }
+        .plancards .pc-top { padding: 22px 22px 12px; }
+        .plancards .pc-name { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; font-weight: 700; }
+        .plancards .pc-headline { font-family: var(--f-display); font-weight: 900; font-size: 20px; line-height: 1.1; color: var(--ink); margin-bottom: 10px; }
+        .plancards .pc-sub { font-size: 12px; color: var(--gray-500); font-style: italic; line-height: 1.45; }
+        .plancards .pc-band { margin: 12px 22px 0; background: var(--lime); padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--ink); }
+        .plancards .pc-band-lbl { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--ink); }
+        .plancards .pc-band-val { font-family: var(--f-display); font-weight: 900; font-size: 16px; color: var(--ink); }
+        .plancards .pc-block { margin: 12px 22px 0; background: var(--gray-100); padding: 12px 14px; border: 1px solid var(--gray-200); }
+        .plancards .pc-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 4px 0; }
+        .plancards .pc-row + .pc-row { border-top: 1px solid var(--gray-200); margin-top: 4px; padding-top: 8px; }
+        .plancards .pc-sess-name { font-family: var(--f-mono); font-size: 10px; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 0.08em; }
+        .plancards .pc-sess-cad { font-size: 10px; color: var(--gray-500); margin-top: 2px; }
+        .plancards .pc-val { font-family: var(--f-display); font-weight: 900; font-size: 14px; color: var(--ink); text-align: right; white-space: nowrap; }
+        .plancards .pc-unit { font-family: var(--f-mono); font-size: 9px; color: var(--gray-500); text-align: right; margin-top: 1px; letter-spacing: 0.1em; text-transform: uppercase; }
+        .plancards .pc-section { padding: 14px 22px; border-top: 1px solid var(--gray-200); }
+        .plancards .pc-hdr { font-family: var(--f-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray-500); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .plancards .dot { width: 6px; height: 6px; display: inline-block; flex-shrink: 0; }
+        .plancards .dot-fixed { background: var(--ink); }
+        .plancards .dot-lime { background: var(--lime); }
+        .plancards .dot-orange { background: var(--orange); }
+        .plancards .pc ul { list-style: none; padding: 0; margin: 0; }
+        .plancards .pc ul li { font-size: 12px; color: var(--ink); padding: 3px 0; display: flex; align-items: flex-start; gap: 8px; line-height: 1.45; }
+        .plancards .pc ul li .chk { flex-shrink: 0; font-weight: 900; font-size: 12px; }
+        .plancards .pc ul li .chk-ink { color: var(--ink); }
+        .plancards .pc ul li .chk-lime { color: var(--ink); background: var(--lime); padding: 0 4px; }
+        .plancards .pc ul li .chk-orange { color: var(--paper); background: var(--orange); padding: 0 4px; }
+        .plancards .pc-note { font-size: 10px; color: var(--gray-500); font-style: italic; display: block; margin-top: 1px; }
+        .plancards .pc-cred-more { margin-top: 8px; padding: 8px 10px; background: var(--gray-100); border: 1px dashed var(--gray-300); font-size: 10px; color: var(--gray-700); line-height: 1.5; }
+        .plancards .pc-cred-more a { color: var(--orange); font-weight: 700; text-decoration: none; }
+        .plancards .pc-bottom { padding: 14px 22px 20px; border-top: 1px solid var(--gray-200); margin-top: auto; }
+        .plancards .pc-tagline { font-family: var(--f-display); font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 12px; line-height: 1.35; }
+        .plancards .pc-cta { display: block; width: 100%; text-align: center; padding: 12px; font-family: var(--f-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; border: 2px solid var(--ink); }
+        .plancards .pc-cta-dark { background: var(--ink); color: var(--paper); }
+        .plancards .pc-cta-lime { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+        @media (max-width: 900px) { .plancards { grid-template-columns: 1fr; } }
+      </style>
+
+      <div class="plancards">
+
+        <!-- CORE -->
+        <div class="pc">
+          <div class="pc-top">
+            <div class="pc-name">Core</div>
+            <div class="pc-headline">Clarity.<br>Traction.<br>Control.</div>
+            <div class="pc-sub">For organisations that need disciplined focus.</div>
+          </div>
+          <div class="pc-band">
+            <div class="pc-band-lbl">Monthly credit capacity</div>
+            <div class="pc-band-val">70 credits</div>
+          </div>
+          <div class="pc-block">
+            <div class="pc-row">
+              <div><div class="pc-sess-name">Monthly strategy session</div><div class="pc-sess-cad">1× per month</div></div>
+              <div><div class="pc-val">60 min</div></div>
+            </div>
+            <div class="pc-row">
+              <div><div class="pc-sess-name">On-demand support</div><div class="pc-sess-cad">Book via your Strategist</div></div>
+              <div><div class="pc-val">1.5 hrs</div><div class="pc-unit">per month</div></div>
+            </div>
+          </div>
+          <div class="pc-section">
+            <div class="pc-hdr"><span class="dot dot-fixed"></span>The System · always included</div>
+            <ul>
+              <li><span class="chk chk-ink">✓</span> Monthly Playbook</li>
+              <li><span class="chk chk-ink">✓</span> Live growth Dashboard</li>
+              <li><span class="chk chk-ink">✓</span> Dedicated Strategist</li>
+              <li><span class="chk chk-ink">✓</span> Compound Score</li>
+              <li><span class="chk chk-ink">✓</span> Ongoing brand &amp; messaging input</li>
+              <li><span class="chk chk-ink">✓</span> Specialist input routed by your Strategist</li>
+            </ul>
+          </div>
+          <div class="pc-section">
+            <div class="pc-hdr"><span class="dot dot-lime"></span>Your credits fund</div>
+            <ul>
+              <li><span class="chk chk-lime">✓</span>
+                Priority channel execution
+                <span class="pc-note">1–2 channels — agreed in your Playbook</span>
+              </li>
+              <li><span class="chk chk-lime">✓</span> Discovery &amp; audit work</li>
+              <li><span class="chk chk-lime">✓</span> Brand &amp; content deliverables</li>
+            </ul>
+            <div class="pc-cred-more">
+              Credits unlock any service from the 153-item ALC Menu.
+              <br><a href="#">Explore the menu →</a>
+            </div>
+          </div>
+          <div class="pc-bottom">
+            <div class="pc-tagline">Establish commercial momentum with precision.</div>
+            <a class="pc-cta pc-cta-dark" href="#">Let's talk Core</a>
+          </div>
+        </div>
+
+        <!-- GROWTH -->
+        <div class="pc featured">
+          <div class="pc-top">
+            <div class="pc-name">Growth · most chosen</div>
+            <div class="pc-headline">Repeatability.<br>Optimisation.<br>Expansion.</div>
+            <div class="pc-sub">For teams building a scalable engine.</div>
+          </div>
+          <div class="pc-band">
+            <div class="pc-band-lbl">Monthly credit capacity</div>
+            <div class="pc-band-val">110 credits</div>
+          </div>
+          <div class="pc-block">
+            <div class="pc-row">
+              <div><div class="pc-sess-name">Bi-weekly alignment</div><div class="pc-sess-cad">2× per month</div></div>
+              <div><div class="pc-val">60 min</div><div class="pc-unit">each</div></div>
+            </div>
+            <div class="pc-row">
+              <div><div class="pc-sess-name">On-demand support</div><div class="pc-sess-cad">Book via your Strategist</div></div>
+              <div><div class="pc-val">3 hrs</div><div class="pc-unit">per month</div></div>
+            </div>
+          </div>
+          <div class="pc-section">
+            <div class="pc-hdr"><span class="dot dot-fixed"></span>Everything in Core, plus</div>
+            <ul>
+              <li><span class="chk chk-ink">✓</span> CMO-level oversight from your Strategist</li>
+            </ul>
+          </div>
+          <div class="pc-section">
+            <div class="pc-hdr"><span class="dot dot-lime"></span>Your credits fund</div>
+            <ul>
+              <li><span class="chk chk-lime">✓</span> Structured growth experiments</li>
+              <li><span class="chk chk-lime">✓</span>
+                Multi-channel orchestration
+                <span class="pc-note">3+ channels — directed by your Playbook</span>
+              </li>
+              <li><span class="chk chk-lime">✓</span> Creative production &amp; conversion optimisation</li>
+            </ul>
+            <div class="pc-cred-more">
+              Credits unlock any service from the 153-item ALC Menu.
+              <br><a href="#">Explore the menu →</a>
+            </div>
+          </div>
+          <div class="pc-section">
+            <div class="pc-hdr"><span class="dot dot-orange"></span>Specialists on the bench</div>
+            <ul>
+              <li><span class="chk chk-orange">✓</span> Senior brand &amp; strategy specialists</li>
+              <li><span class="chk chk-orange">✓</span> Performance marketing specialists</li>
+            </ul>
+          </div>
+          <div class="pc-bottom">
+            <div class="pc-tagline">Turn traction into predictable performance.</div>
+            <a class="pc-cta pc-cta-lime" href="#">Let's talk Growth</a>
+          </div>
+        </div>
+
+        <!-- PERFORMANCE -->
+        <div class="pc">
+          <div class="pc-top">
+            <div class="pc-name">Performance</div>
+            <div class="pc-headline">Acceleration.<br>Market expansion.<br>Efficiency at scale.</div>
+            <div class="pc-sub">For organisations scaling aggressively.</div>
+          </div>
+          <div class="pc-band">
+            <div class="pc-band-lbl">Monthly credit capacity</div>
+            <div class="pc-band-val">180 credits</div>
+          </div>
+          <div class="pc-block">
+            <div class="pc-row">
+              <div><div class="pc-sess-name">Weekly growth review</div><div class="pc-sess-cad">4× per month</div></div>
+              <div><div class="pc-val">60 min</div><div class="pc-unit">each</div></div>
+            </div>
+            <div class="pc-row">
+              <div><div class="pc-sess-name">On-demand support</div><div class="pc-sess-cad">Book via your Strategist</div></div>
+              <div><div class="pc-val">6 hrs</div><div class="pc-unit">per month</div></div>
+            </div>
+          </div>
+          <div class="pc-section">
+            <div class="pc-hdr"><span class="dot dot-fixed"></span>Everything in Growth, plus</div>
+            <ul>
+              <li><span class="chk chk-ink">✓</span> Priority account access &amp; senior escalation</li>
+            </ul>
+          </div>
+          <div class="pc-section">
+            <div class="pc-hdr"><span class="dot dot-lime"></span>Your credits fund</div>
+            <ul>
+              <li><span class="chk chk-lime">✓</span> Advanced testing architecture</li>
+              <li><span class="chk chk-lime">✓</span> Forecasting &amp; growth modelling</li>
+              <li><span class="chk chk-lime">✓</span> Full-funnel campaigns &amp; multi-market rollout</li>
+            </ul>
+            <div class="pc-cred-more">
+              Credits unlock any service from the 153-item ALC Menu.
+              <br><a href="#">Explore the menu →</a>
+            </div>
+          </div>
+          <div class="pc-section">
+            <div class="pc-hdr"><span class="dot dot-orange"></span>Specialists on the bench</div>
+            <ul>
+              <li><span class="chk chk-orange">✓</span> Senior brand &amp; strategy specialists</li>
+              <li><span class="chk chk-orange">✓</span> Performance marketing specialists</li>
+              <li><span class="chk chk-orange">✓</span> Events &amp; activation specialists</li>
+            </ul>
+          </div>
+          <div class="pc-bottom">
+            <div class="pc-tagline">Scale revenue with control and confidence.</div>
+            <a class="pc-cta pc-cta-dark" href="#">Let's talk Performance</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top: 28px; padding: 16px 20px; background: var(--ink); color: var(--paper); font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.04em; line-height: 1.6;">
+        <b style="color: var(--lime);">DEV NOTE ·</b>
+        this render is a <b style="color: var(--paper);">target-state preview</b>, not a rebuild spec — don't re-template the card component. Keep the current Webflow card structure and only edit the text nodes listed in the swap table above. If the live card uses rounded corners, set <code style="background: #2A2A2A; color: var(--paper); padding: 2px 6px;">border-radius: 0</code>. Middle card uses inverted treatment (ink background, lime credit band) to signal "most chosen".
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 08b · STATEMENT BAND (NEW BUILD) -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">14</span> · new band · between plans &amp; proof</div>
+    <h2>Statement band · "Growth that compounds. Visibly."</h2>
+    <p style="color: var(--charcoal); margin-top: 8px; max-width: 62ch;">
+      A new full-bleed band slots into the one-pager between the plan cards and the proof/CTA section.
+      Oversized tagline set in Montserrat 900 + Playfair italic script, lime background, ink type.
+      Body copy anchors bottom-left — everything else is atmospheric type.
+    </p>
+
+    <div class="where">
+      <span>New band · slot after plans, before CTA / proof</span>
+      <code>assets/statement-bg/statement-bg-v2-lime.png</code>
+      <span class="mins">30 min</span>
+    </div>
+
+    <div class="img-block">
+      <a href="assets/viewer/statement-bg.html" target="_blank" rel="noopener">
+        <img src="assets/statement-bg/statement-bg-v2-lime.png" alt="Statement band V2 — compounding growth version on lime">
+      </a>
+      <div class="caption">
+        <span>Full-bleed · 2400 × 1350 source · no rounded corners · no container</span>
+        <span class="file">statement-bg-v2-lime.png</span>
+        <a href="assets/viewer/statement-bg.html" target="_blank" rel="noopener" class="lnk" style="text-decoration: none;">Open → download ↗</a>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col current">
+        <span class="tag">Current · live</span>
+        <p class="body sm">(No statement band on the current site.)</p>
+      </div>
+      <div class="col new">
+        <span class="tag">New · build</span>
+        <p class="body sm">
+          Full-bleed lime band. Large type behind small body block.
+          <br><br>
+          <b>Statement (background):</b> "Growth that compounds. Visibly." — set in Montserrat 900 + Playfair italic script, clamp(120px, 18vw, 280px), low-contrast ink at ~12% opacity.
+          <br><br>
+          <b>Eyebrow (foreground, bottom-left):</b> "THE MONTH COMPOUNDS" — ink, mono, 0.22em tracking.
+          <br><br>
+          <b>Body (foreground):</b> "One Playbook. Three plays. A Compound Score that updates every month — what worked rolls forward, what didn't gets archived with the reason. Six months in, the story is smarter than anyone could write on day one."
+          <br><br>
+          <b>CTA:</b> "See the Dashboard →" — ink button, lime text, hover orange.
+        </p>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px; padding: 14px 18px; background: var(--white); border-left: 4px solid var(--lime); font-size: 13px; line-height: 1.55;">
+      <b>Build note ·</b> reference HTML at <code>concepts/statement-bg.html</code> (Variant 2).
+      The concept uses scroll-anchoring (statement pins while body copy scrolls past) — <b>skip that on first pass</b>, ship the flat layout, add scroll-anchor after go-live. Dev cost without scroll: ~30 min. With scroll: +2 hrs.
+    </div>
+  </div>
+</section>
+
+<!-- 09 · CLOSING CTA -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">09</span> · closing cta band</div>
+    <h2>Headline swap.</h2>
+
+    <div class="where"><span>Closing CTA headline</span><code>.cta__title</code><span class="mins">3 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body">Ready to build a real growth engine?</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body">Ready to run the cadence?</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · FOOTER TAGLINE -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">10</span> · footer · under logo</div>
+    <h2>Add footer tagline.</h2>
+
+    <div class="where"><span>Under the logo in the footer</span><code>.footer__tagline</code><span class="mins">5 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body sm">(no tagline currently under the logo)</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body sm">Growth that compounds. Visibly.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 · TEAM -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">11</span> · team section</div>
+    <h2>Role titles.</h2>
+
+    <div class="where"><span>Role titles under the four team photos</span><code>.team__role</code><span class="mins">5 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body sm">"Brand Strategist" (wherever it appears under team photos)</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body sm">"Strategist" (generic — role is not brand-specific in the new positioning)</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 · FOOTER NAV -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">12</span> · footer nav</div>
+    <h2>Consistency fix with topbar.</h2>
+
+    <div class="where"><span>Footer nav link</span><code>.footer__nav a</code><span class="mins">5 min</span></div>
+    <div class="pair">
+      <div class="col current"><span class="tag">Current · live</span><p class="body sm">Services &amp; Plans</p></div>
+      <div class="col new"><span class="tag">New</span><p class="body sm">Plans</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · LOGO BAR AUDIT -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">13</span> · "trusted by bold brands" logo bar</div>
+    <h2>Audit pass.</h2>
+
+    <div class="where"><span>Logo bar</span><code>.logos</code><span class="mins">10 min</span></div>
+    <div class="single">
+      <p class="body">Prune: drop any logo where the engagement has ended or the brand no longer represents our current work.</p>
+      <p class="note">No new logos added in this pass — just pruning. Ruben to flag the list in Slack before the dev starts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OPTIONAL · ICONS -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow">optional · additional asset</div>
+    <h2>Brand icon set (14).</h2>
+    <p style="color: var(--charcoal); margin-top: 8px; max-width: 62ch;">
+      If the current site uses generic Lucide/Feather icons in section headers or feature lists, swap to the brand set. Each SVG has a light and dark (<code>-inv.svg</code>) variant.
+      Click any tile to open the icon in a new window and save. Or open
+      <a href="assets/viewer/icons.html" target="_blank" rel="noopener" style="background: var(--ink); color: var(--lime); padding: 3px 10px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-decoration: none;">the full icon viewer ↗</a>.
+    </p>
+
+    <div class="icon-grid">
+      <a class="new" href="assets/icons/compound-score.svg" target="_blank" rel="noopener"><img src="assets/icons/compound-score.svg" alt=""><div class="name">Compound Score</div><div class="flag">NEW</div></a>
+      <a class="new" href="assets/icons/escalation-router.svg" target="_blank" rel="noopener"><img src="assets/icons/escalation-router.svg" alt=""><div class="name">Escalation Router</div><div class="flag">NEW</div></a>
+      <a class="new" href="assets/icons/credit-allocation.svg" target="_blank" rel="noopener"><img src="assets/icons/credit-allocation.svg" alt=""><div class="name">Credit Allocation</div><div class="flag">NEW</div></a>
+      <a class="new" href="assets/icons/dashboard.svg" target="_blank" rel="noopener"><img src="assets/icons/dashboard.svg" alt=""><div class="name">Dashboard</div><div class="flag">NEW</div></a>
+      <a class="new" href="assets/icons/menu.svg" target="_blank" rel="noopener"><img src="assets/icons/menu.svg" alt=""><div class="name">ALC Menu</div><div class="flag">NEW</div></a>
+      <a class="new" href="assets/icons/strategist.svg" target="_blank" rel="noopener"><img src="assets/icons/strategist.svg" alt=""><div class="name">Strategist</div><div class="flag">NEW</div></a>
+      <a href="assets/icons/playbook.svg" target="_blank" rel="noopener"><img src="assets/icons/playbook.svg" alt=""><div class="name">Playbook</div></a>
+      <a href="assets/icons/signal.svg" target="_blank" rel="noopener"><img src="assets/icons/signal.svg" alt=""><div class="name">Signal</div></a>
+      <a href="assets/icons/system.svg" target="_blank" rel="noopener"><img src="assets/icons/system.svg" alt=""><div class="name">System</div></a>
+      <a href="assets/icons/loop.svg" target="_blank" rel="noopener"><img src="assets/icons/loop.svg" alt=""><div class="name">Loop</div></a>
+      <a href="assets/icons/momentum.svg" target="_blank" rel="noopener"><img src="assets/icons/momentum.svg" alt=""><div class="name">Momentum</div></a>
+      <a href="assets/icons/control.svg" target="_blank" rel="noopener"><img src="assets/icons/control.svg" alt=""><div class="name">Control</div></a>
+      <a href="assets/icons/execution.svg" target="_blank" rel="noopener"><img src="assets/icons/execution.svg" alt=""><div class="name">Execution</div></a>
+      <a href="assets/icons/team.svg" target="_blank" rel="noopener"><img src="assets/icons/team.svg" alt=""><div class="name">Team</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- OPTIONAL · LINKEDIN TILE -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow">optional · og / social share image</div>
+    <h2>LinkedIn / OG hero tile.</h2>
+
+    <div class="where"><span>Open Graph image (og:image meta + social-share module)</span><code>assets/illustrations/growth-dashboard.png</code><span class="mins">15 min</span></div>
+    <div class="img-block">
+      <a href="assets/viewer/growth-dashboard.html" target="_blank" rel="noopener">
+        <img src="assets/illustrations/growth-dashboard.png" alt="Growth Dashboard hero tile">
+      </a>
+      <div class="caption">
+        <span>1200 × 630 safe-crop within 2400 × 1260</span>
+        <span class="file">2400 × 1260 · PNG</span>
+        <a href="assets/viewer/growth-dashboard.html" target="_blank" rel="noopener" class="lnk" style="text-decoration: none;">Open → download ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHT RULES -->
+<section class="rules">
+  <div class="wrap">
+    <div class="eyebrow">visual rules · for new copy only</div>
+    <h2>Bold + highlight treatment.</h2>
+    <p style="color: #C5C5C0; max-width: 62ch; margin-top: 8px;">
+      The brief above is plain so copy can be pasted cleanly. These rules tell the dev which words on the <b style="color: var(--paper);">new site</b> get a visual accent. Apply to new copy only — never to current copy.
+    </p>
+
+    <ul style="margin-top: 32px;">
+      <li>
+        <span class="mk">R1</span>
+        <div>
+          <h3>One highlight per block. Never more.</h3>
+          <div class="d">Pick the one or two words that carry the weight and mark them. If everything is highlighted, nothing is. A typical page has 5–8 highlights total, not 30.</div>
+        </div>
+      </li>
+      <li>
+        <span class="mk">R2</span>
+        <div>
+          <h3>Lime block background — for category / brand words.</h3>
+          <div class="d">Use <span class="mark-lime">lime highlight</span> on the defining noun of the category: <em>growth operating system</em>, <em>Playbook</em>, <em>Compound Score</em>, <em>Dashboard</em>, <em>ALC Menu</em>. Never on verbs. Never on filler words.</div>
+        </div>
+      </li>
+      <li>
+        <span class="mk">R3</span>
+        <div>
+          <h3>Orange block background — for numbers &amp; proof-points.</h3>
+          <div class="d">Use <span class="mark-orange">orange highlight</span> on the number or the proof-claim: <em>one score</em>, <em>153-item</em>, <em>20 April 2026</em>, <em>+87</em>. Use sparingly — 1–2 per page maximum.</div>
+        </div>
+      </li>
+      <li>
+        <span class="mk">R4</span>
+        <div>
+          <h3>Inverted ink block — for short emphatic phrases only.</h3>
+          <div class="d">Use <span class="mark-ink">ink highlight</span> only on tabs, micro-labels, or a single emphatic phrase ("ONE SCORE."). Never on running prose. Never on the hero H1.</div>
+        </div>
+      </li>
+      <li>
+        <span class="mk">R5</span>
+        <div>
+          <h3>Weight contrast lives in Montserrat Black 900.</h3>
+          <div class="d">The "alive and bold" feeling comes from Montserrat 900 at scale — not from more highlights. Keep H1/H2 at <b>Montserrat 900</b>, body at Inter 400/500. Don't add italic serifs. Don't add script fonts.</div>
+        </div>
+      </li>
+      <li>
+        <span class="mk">R6</span>
+        <div>
+          <h3>90° corners. Everywhere. No exceptions.</h3>
+          <div class="d">No rounded corners on <b>anything</b>: hero video, hero imagery, tiles, cards, plan cards, credit bands, CTA buttons, inputs, avatars, social-share images. If a Webflow component ships with default radius, override to <code style="background: #2A2A2A; color: var(--paper);">border-radius: 0</code>. The hero video especially — <span class="mark-lime">radius 0</span> on the video element. Run a radius audit post-import.</div>
+        </div>
+      </li>
+      <li>
+        <span class="mk">R7</span>
+        <div>
+          <h3>Ink bars — not gradients.</h3>
+          <div class="d">Top bar, CTA band, and footer use solid <b>#1A1A1A</b> with a 6px <b style="color: var(--lime);">#DEE450</b> lime border underneath. No gradients, no shadows, no glow.</div>
+        </div>
+      </li>
+      <li>
+        <span class="mk">R8</span>
+        <div>
+          <h3>Full-width website. Hero + media go edge-to-edge.</h3>
+          <div class="d">The site is <span class="mark-lime">full-width</span>. The hero video sits edge-to-edge (no max-width container, no gutters). Hero-band imagery the same. The new statement band (section 14) is also full-bleed lime. Content rows stay in the 1120–1200px column, but <b>all media bands go full-width</b>. No rounded corners on any media, per R6.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ASSET MANIFEST -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow">asset manifest · clickable</div>
+    <h2>Files supplied with this brief.</h2>
+    <p style="color: var(--charcoal); max-width: 62ch; margin-top: 8px;">Open any viewer link in a new window. From the viewer, right-click the image → <em>Save image as…</em></p>
+
+    <table class="punch">
+      <thead>
+        <tr><th>File</th><th>Dimensions</th><th>Viewer</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>assets/illustrations/step03-compound.png</code></td><td>1600 × 900</td><td><a href="assets/viewer/step03.html" target="_blank" rel="noopener">Open ↗</a></td></tr>
+        <tr><td><code>assets/illustrations/dashboard-cluster.png</code></td><td>1600 × 1000</td><td><a href="assets/viewer/dashboard-cluster.html" target="_blank" rel="noopener">Open ↗</a></td></tr>
+        <tr><td><code>assets/illustrations/growth-dashboard.png</code></td><td>2400 × 1260</td><td><a href="assets/viewer/growth-dashboard.html" target="_blank" rel="noopener">Open ↗</a></td></tr>
+        <tr><td><code>assets/icons/*.svg</code> (14 icons)</td><td>32 × 32 viewBox</td><td><a href="assets/viewer/icons.html" target="_blank" rel="noopener">Open ↗</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="blk">
+  <div class="wrap">
+    <div class="eyebrow">hand-off</div>
+    <h2>Go-live checklist.</h2>
+
+    <div class="checklist">
+      <h3>For Taffy &amp; Fidel — before you open Webflow.</h3>
+      <ol>
+        <li><b>Copy edits</b> — Ruben signs off the 12 text swaps as written (or flags edits in Slack).</li>
+        <li><b>Plan cards</b> — Taffy &amp; Fidel confirm the post-swap render in Section 08 matches the CMS structure and the 10 card-level swaps are clear.</li>
+        <li><b>Step 03 illustration</b> — swap the orange arrow for <code>step03-compound.png</code>.</li>
+        <li><b>Lime-band illustration</b> — swap the gear/cog for <code>dashboard-cluster.png</code>.</li>
+        <li><b>Statement band (NEW · Section 14)</b> — build the full-bleed lime band between Plans and Proof. Skip the scroll-anchor on first pass.</li>
+        <li><b>Logo bar audit</b> — Ruben supplies the prune-list in Slack.</li>
+        <li><b>Optional icons</b> — Ruben confirms go / no-go on the 14-icon swap.</li>
+        <li><b>Optional OG tile</b> — Ruben confirms go / no-go on the LinkedIn share image.</li>
+        <li><b>Highlight rules</b> — Taffy &amp; Fidel read R1–R8 before applying any visual accent.</li>
+        <li><b>Full-width + 90° corners</b> — hero video edge-to-edge, all media full-bleed, radius audit post-import.</li>
+        <li><b>Go / no-go</b> — one Slack message from Ruben, and the work is started.</li>
+      </ol>
+      <div style="margin-top: 24px; padding: 14px 18px; background: var(--ink); color: var(--paper); font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em; line-height: 1.6;">
+        <b style="color: var(--orange);">SAME-DAY SHIP ·</b>
+        handoff <b style="color: var(--lime);">MON 20 APRIL · AM</b> (today, now) · go-live <b style="color: var(--lime);">MON 20 APRIL · COB</b> (today).
+        <br>One working day. Anything that can't ship today gets bumped to a follow-up patch.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>gritfuel.works · dev brief v2 · for taffy &amp; fidel</span>
+    <span>same-day ship · handoff am · go-live cob · mon 20 apr</span>
+  </div>
+</footer>
+
+</body>
+</html>

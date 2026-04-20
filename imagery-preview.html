@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imagery · statement-background options — GritFuel</title>
+<link rel="stylesheet" href="assets/shared.css">
+<style>
+  body { background: var(--paper); }
+
+  .micro-bar { background: var(--ink); color: var(--paper); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; padding: 10px 24px; text-align: center; }
+  .micro-bar .lime { color: var(--lime); }
+  .micro-bar a { color: var(--lime); text-decoration: underline; text-underline-offset: 3px; }
+
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 48px 32px 96px; }
+
+  .page-head h1 {
+    font-family: var(--f-display); font-weight: 900;
+    font-size: clamp(36px, 4.5vw, 56px); line-height: 1.02; letter-spacing: -0.025em;
+    margin: 0 0 12px;
+  }
+  .page-head .kicker { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gray); }
+  .page-head .lead { max-width: 60ch; color: #2A2A2A; font-size: 18px; line-height: 1.55; }
+
+  .meta-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    margin: 32px 0 56px;
+  }
+  .meta-cell {
+    background: var(--white); border: 1px solid var(--gray-200);
+    border-radius: 12px; padding: 18px 20px;
+  }
+  .meta-cell .lbl { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gray); }
+  .meta-cell .val { font-family: var(--f-display); font-weight: 800; font-size: 22px; line-height: 1.1; margin-top: 6px; }
+  .meta-cell .sub { font-size: 12.5px; color: var(--gray); margin-top: 4px; }
+
+  .variant-card {
+    background: var(--white); border: 1px solid var(--gray-200);
+    border-radius: 16px; overflow: hidden;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  }
+  .variant-card .thumb {
+    display: block; width: 100%; aspect-ratio: 16/9;
+    object-fit: cover;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .variant-card .body {
+    padding: 28px 32px 32px;
+    display: grid; grid-template-columns: 1fr 320px; gap: 32px;
+    align-items: start;
+  }
+  .variant-card .body h3 {
+    font-family: var(--f-display); font-weight: 800; font-size: 24px;
+    margin: 0 0 8px; letter-spacing: -0.015em;
+  }
+  .variant-card .body .tag {
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gray);
+  }
+  .variant-card .body p { font-size: 14.5px; color: #2A2A2A; margin: 10px 0; }
+  .variant-card .recipe {
+    font-family: var(--f-mono); font-size: 12px; color: var(--gray);
+    background: var(--gray-100); border-radius: 8px; padding: 14px 16px;
+    line-height: 1.7;
+  }
+  .variant-card .recipe span { color: var(--ink); }
+  .variant-card .actions {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px;
+  }
+  .variant-card .pill {
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; padding: 8px 14px;
+    border: 1px solid var(--ink); border-radius: 999px;
+    color: var(--ink);
+  }
+  .variant-card .pill.primary { background: var(--ink); color: var(--white); }
+  .variant-card .pill.lime { background: var(--lime); border-color: var(--lime); color: var(--ink); }
+
+  .notes-panel {
+    background: var(--white); border: 1px solid var(--gray-200);
+    border-radius: 12px; padding: 28px; margin-top: 56px;
+  }
+  .notes-panel h3 { font-family: var(--f-display); font-weight: 800; font-size: 22px; margin: 0 0 16px; }
+  .notes-panel ul { padding-left: 22px; }
+  .notes-panel li { font-size: 14.5px; line-height: 1.7; margin-bottom: 8px; }
+
+  .footer-note {
+    margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--gray-200);
+    font-size: 13px; color: var(--gray);
+  }
+
+  @media (max-width: 880px) {
+    .meta-grid { grid-template-columns: repeat(2, 1fr); }
+    .variant-card .body { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="micro-bar">
+  Imagery preview · <span class="lime">statement-bg options</span> · <a href="refinement-spec.html">← spec</a>
+</div>
+
+<div class="wrap">
+
+<div class="page-head">
+  <span class="kicker">Batch 01 · Statement-background images · 2400 × 1350 PNG</span>
+  <h1>Three background-statement treatments,<br>built on Brand Guide v2.</h1>
+  <p class="lead">
+    Full-bleed PNGs you can drop behind any section of the one-pager — each a
+    standalone statement that carries the positioning visually before the body
+    copy asks for attention. Weight contrast (Montserrat Black + ExtraLight)
+    replaces the italic serif from the instrument.com reference, keeping us
+    inside the brand system.
+  </p>
+
+  <div class="meta-grid">
+    <div class="meta-cell">
+      <div class="lbl">Output</div>
+      <div class="val">PNG</div>
+      <div class="sub">2400 × 1350 · 16:9</div>
+    </div>
+    <div class="meta-cell">
+      <div class="lbl">Style</div>
+      <div class="val">Flat vector</div>
+      <div class="sub">Editorial, weight-contrast</div>
+    </div>
+    <div class="meta-cell">
+      <div class="lbl">Fonts</div>
+      <div class="val">Brand only</div>
+      <div class="sub">Montserrat + Inter + JetBrains</div>
+    </div>
+    <div class="meta-cell">
+      <div class="lbl">Usage</div>
+      <div class="val">Drop-in</div>
+      <div class="sub">Full-bleed section bg</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= V1 · PAPER ============= -->
+<div class="variant-card">
+  <img class="thumb" src="assets/statement-bg/statement-bg-v1-paper.png" alt="V1 — Paper + charcoal statement background, reading 'Human thinking. Relentless execution.'">
+  <div class="body">
+    <div>
+      <span class="tag">V1 · Paper + Charcoal</span>
+      <h3>Human thinking. Relentless execution.</h3>
+      <p>Lowest-contrast, quietest variant. Sits best between the hero and the plans
+         block as a "what drives the OS" pause. Soft-grey statement against the
+         paper base keeps it unobtrusive until the eye lands on the body block.</p>
+      <p><strong>Best slot:</strong> after hero, before plans.</p>
+    </div>
+    <div>
+      <div class="recipe">
+        <span>BG:</span> #FAFAF7 (paper)<br>
+        <span>DISPLAY:</span> #D4D4CF / #C8C8C2<br>
+        <span>BODY:</span> #1A1A1A (ink)<br>
+        <span>EYEBROW:</span> #FC4E2B (orange)<br>
+        <span>CTA:</span> ink button, white text
+      </div>
+      <div class="actions">
+        <a href="assets/statement-bg/statement-bg-v1-paper.png" class="pill primary">Open full PNG</a>
+        <span class="pill">2400×1350</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= V2 · LIME ============= -->
+<div class="variant-card">
+  <img class="thumb" src="assets/statement-bg/statement-bg-v2-lime.png" alt="V2 — Lime statement background, reading 'Growth that compounds. Visibly.'">
+  <div class="body">
+    <div>
+      <span class="tag">V2 · Lime + Ink</span>
+      <h3>Growth that compounds. Visibly.</h3>
+      <p>Most brand-forward variant. Uses the companion tagline directly. Works as
+         a break between the three-plans row and the "trusted by" logos, or as
+         the closer before the footer — lime as a signal that something
+         compounds.</p>
+      <p><strong>Best slot:</strong> before "trusted by" / before footer CTA.</p>
+    </div>
+    <div>
+      <div class="recipe">
+        <span>BG:</span> #DEE450 (lime)<br>
+        <span>DISPLAY:</span> muted olive (rgb 150/160/40)<br>
+        <span>BODY:</span> #1A1A1A (ink)<br>
+        <span>EYEBROW:</span> dark olive<br>
+        <span>CTA:</span> ink button, lime text
+      </div>
+      <div class="actions">
+        <a href="assets/statement-bg/statement-bg-v2-lime.png" class="pill primary">Open full PNG</a>
+        <span class="pill">2400×1350</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= V3 · INK ============= -->
+<div class="variant-card">
+  <img class="thumb" src="assets/statement-bg/statement-bg-v3-ink.png" alt="V3 — Ink statement background with lime accent, reading 'The growth operating system.'">
+  <div class="body">
+    <div>
+      <span class="tag">V3 · Ink + Lime Accent</span>
+      <h3>The growth operating system.</h3>
+      <p>Strongest statement. Names the category in three lines, lime accent on
+         the word that matters ("operating"). Built for the closing CTA frame —
+         the last thing the visitor reads before they scroll to the footer and
+         book a call.</p>
+      <p><strong>Best slot:</strong> closing CTA band. Highest-impact placement.</p>
+    </div>
+    <div>
+      <div class="recipe">
+        <span>BG:</span> #1A1A1A (ink)<br>
+        <span>DISPLAY:</span> rgb(52/52/52) light grey<br>
+        <span>ACCENT:</span> muted lime (rgb 105/108/36)<br>
+        <span>BODY:</span> rgb(220/220/220) near-white<br>
+        <span>EYEBROW:</span> #DEE450 (lime)<br>
+        <span>CTA:</span> lime button, ink text
+      </div>
+      <div class="actions">
+        <a href="assets/statement-bg/statement-bg-v3-ink.png" class="pill lime">Recommended</a>
+        <a href="assets/statement-bg/statement-bg-v3-ink.png" class="pill primary">Open full PNG</a>
+        <span class="pill">2400×1350</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= IMPLEMENTATION NOTES ============= -->
+<div class="notes-panel">
+  <h3>Dev notes for implementation</h3>
+  <ul>
+    <li><strong>Use case:</strong> these PNGs are <em>backgrounds</em>, not standalone hero images. Drop behind a section at full-bleed, then layer the actual section HTML on top. The text baked into the PNG is the display statement; live section HTML carries links, anchors, and analytics.</li>
+    <li><strong>Or, live version:</strong> if the dev prefers live text (for accessibility, SEO, and responsive reflow), these PNGs are reference-only — the <code>concepts/statement-bg.html</code> file shows how to rebuild the same layout in pure HTML. Accessibility-preferred approach.</li>
+    <li><strong>Typography swap:</strong> weight contrast (Montserrat Black 900 + ExtraLight 200) stands in for the italic serif used in the instrument.com reference. This keeps us 100% on-brand with Guide v2. If you want the actual italic-serif look, we can add Playfair Display as a brand exception — say the word.</li>
+    <li><strong>Overlap intentional:</strong> on each variant the display statement runs underneath the body block on purpose — the visual layering is the whole point of the treatment. If that reads as too busy at your viewport size, trim the last display line or raise the body block.</li>
+    <li><strong>Still to come if you want them:</strong> tool / process icons (Batch 02), replacement illustrations for Step 03 and the gear graphic (Batch 03), dashboard mockup tile (Batch 04).</li>
+  </ul>
+</div>
+
+<div class="footer-note">
+  Imagery batch v1 · 2026-04-20 · source script at
+  <code>/website-refinement-scripts/make_statement_bg.py</code>
+</div>
+
+</div>
+
+</body>
+</html>

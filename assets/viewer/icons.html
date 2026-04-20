@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Icon set · gritfuel asset viewer</title>
+<style>
+  :root { --ink: #1A1A1A; --paper: #FAFAF7; --lime: #DEE450; --orange: #FC4E2B; --gray-500: #7A7A7A; --gray-300: #BFBFBF; --gray-200: #E2E2DE; --gray-100: #EFEFEA; --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace; --f-display: "Montserrat", "Arial Black", sans-serif; --f-body: "Inter", -apple-system, sans-serif; }
+  *, *::before, *::after { box-sizing: border-box; border-radius: 0 !important; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: var(--f-body); background: var(--paper); color: var(--ink); }
+  a { color: inherit; }
+
+  .bar { background: var(--ink); color: var(--paper); border-bottom: 6px solid var(--lime); padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+  .bar .left { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  .bar a { text-decoration: none; padding: 6px 12px; border: 1px solid var(--paper); color: var(--paper); }
+  .bar a:hover { background: var(--paper); color: var(--ink); }
+  .bar .title { color: var(--lime); }
+
+  .stage { padding: 48px 32px; max-width: 1280px; margin: 0 auto; }
+  .stage h1 { font-family: var(--f-display); font-weight: 900; font-size: 32px; margin: 0 0 8px; letter-spacing: -0.015em; }
+  .stage p.desc { color: var(--gray-500); font-size: 14px; margin: 0 0 32px; max-width: 62ch; }
+
+  h2.group { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--orange); font-weight: 500; margin: 40px 0 16px; }
+
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .tile { background: #fff; border: 1px solid var(--gray-300); padding: 0; }
+  .tile.new { border: 2px solid var(--ink); }
+  .tile .pair { display: grid; grid-template-columns: 1fr 1fr; }
+  .tile .box { aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; padding: 20px; border-right: 1px solid var(--gray-200); }
+  .tile .box:last-child { border-right: none; }
+  .tile .box.light { background: var(--paper); }
+  .tile .box.dark { background: var(--ink); }
+  .tile .box svg, .tile .box img { width: 48px; height: 48px; }
+  .tile .label { padding: 12px 14px; border-top: 1px solid var(--gray-200); background: var(--gray-100); }
+  .tile .label .name { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); }
+  .tile .label .flag { font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.18em; color: var(--orange); margin-top: 2px; }
+  .tile .dlrow { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--gray-200); }
+  .tile .dlrow a { text-decoration: none; padding: 10px 12px; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; text-align: center; color: var(--ink); border-right: 1px solid var(--gray-200); background: #fff; }
+  .tile .dlrow a:last-child { border-right: none; background: var(--ink); color: var(--lime); }
+  .tile .dlrow a:hover { background: var(--lime); color: var(--ink); }
+  .tile .dlrow a:last-child:hover { background: var(--lime); color: var(--ink); }
+
+  .tip { margin-top: 40px; padding: 16px 20px; background: var(--ink); color: var(--paper); font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em; }
+  .tip b { color: var(--lime); }
+
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="left">
+    <a href="../../developer-brief.html">← back to brief</a>
+    <span class="title">Icon set · 14 icons · 28 SVG files</span>
+  </div>
+</div>
+
+<div class="stage">
+  <h1>GritFuel icon set.</h1>
+  <p class="desc">Each icon ships as two SVGs — a light variant (ink stroke on paper) and a dark variant (paper stroke on ink, suffixed <code>-inv.svg</code>). Click the filename link to open the raw SVG, or the <b>↓ SVG</b> button to download directly.</p>
+
+  <h2 class="group">New · 6 icons for new terminology</h2>
+  <div class="grid">
+    <div class="tile new">
+      <div class="pair">
+        <div class="box light"><img src="../icons/compound-score.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/compound-score-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">Compound Score</div><div class="flag">NEW</div></div>
+      <div class="dlrow">
+        <a href="../icons/compound-score.svg" download>↓ light SVG</a>
+        <a href="../icons/compound-score-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+    <div class="tile new">
+      <div class="pair">
+        <div class="box light"><img src="../icons/escalation-router.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/escalation-router-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">Escalation Router</div><div class="flag">NEW</div></div>
+      <div class="dlrow">
+        <a href="../icons/escalation-router.svg" download>↓ light SVG</a>
+        <a href="../icons/escalation-router-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+    <div class="tile new">
+      <div class="pair">
+        <div class="box light"><img src="../icons/credit-allocation.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/credit-allocation-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">Credit Allocation</div><div class="flag">NEW</div></div>
+      <div class="dlrow">
+        <a href="../icons/credit-allocation.svg" download>↓ light SVG</a>
+        <a href="../icons/credit-allocation-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+    <div class="tile new">
+      <div class="pair">
+        <div class="box light"><img src="../icons/dashboard.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/dashboard-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">Dashboard</div><div class="flag">NEW</div></div>
+      <div class="dlrow">
+        <a href="../icons/dashboard.svg" download>↓ light SVG</a>
+        <a href="../icons/dashboard-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+    <div class="tile new">
+      <div class="pair">
+        <div class="box light"><img src="../icons/menu.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/menu-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">ALC Menu</div><div class="flag">NEW</div></div>
+      <div class="dlrow">
+        <a href="../icons/menu.svg" download>↓ light SVG</a>
+        <a href="../icons/menu-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+    <div class="tile new">
+      <div class="pair">
+        <div class="box light"><img src="../icons/strategist.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/strategist-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">Strategist</div><div class="flag">NEW</div></div>
+      <div class="dlrow">
+        <a href="../icons/strategist.svg" download>↓ light SVG</a>
+        <a href="../icons/strategist-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="group">Existing · 8 icons already in the canonical set</h2>
+  <div class="grid">
+    <div class="tile">
+      <div class="pair">
+        <div class="box light"><img src="../icons/playbook.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/playbook-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">Playbook</div></div>
+      <div class="dlrow">
+        <a href="../icons/playbook.svg" download>↓ light SVG</a>
+        <a href="../icons/playbook-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="pair">
+        <div class="box light"><img src="../icons/signal.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/signal-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">Signal</div></div>
+      <div class="dlrow">
+        <a href="../icons/signal.svg" download>↓ light SVG</a>
+        <a href="../icons/signal-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="pair">
+        <div class="box light"><img src="../icons/system.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/system-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">System</div></div>
+      <div class="dlrow">
+        <a href="../icons/system.svg" download>↓ light SVG</a>
+        <a href="../icons/system-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="pair">
+        <div class="box light"><img src="../icons/loop.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/loop-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">Loop</div></div>
+      <div class="dlrow">
+        <a href="../icons/loop.svg" download>↓ light SVG</a>
+        <a href="../icons/loop-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="pair">
+        <div class="box light"><img src="../icons/momentum.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/momentum-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">Momentum</div></div>
+      <div class="dlrow">
+        <a href="../icons/momentum.svg" download>↓ light SVG</a>
+        <a href="../icons/momentum-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="pair">
+        <div class="box light"><img src="../icons/control.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/control-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">Control</div></div>
+      <div class="dlrow">
+        <a href="../icons/control.svg" download>↓ light SVG</a>
+        <a href="../icons/control-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="pair">
+        <div class="box light"><img src="../icons/execution.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/execution-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">Execution</div></div>
+      <div class="dlrow">
+        <a href="../icons/execution.svg" download>↓ light SVG</a>
+        <a href="../icons/execution-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="pair">
+        <div class="box light"><img src="../icons/team.svg" alt=""></div>
+        <div class="box dark"><img src="../icons/team-inv.svg" alt=""></div>
+      </div>
+      <div class="label"><div class="name">Team</div></div>
+      <div class="dlrow">
+        <a href="../icons/team.svg" download>↓ light SVG</a>
+        <a href="../icons/team-inv.svg" download>↓ dark SVG</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip"><b>TIP ·</b> all icons are 32 × 32 viewBox, stroke-based, inherit <code>currentColor</code> where applicable. Use the light variant on paper backgrounds, the <b>-inv</b> variant on ink backgrounds.</div>
+</div>
+</body>
+</html>

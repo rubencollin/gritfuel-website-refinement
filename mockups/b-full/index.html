@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup B · Full refresh (recommended) — GritFuel</title>
+<link rel="stylesheet" href="../../assets/shared.css">
+<style>
+  .micro-bar { background: var(--ink); color: var(--paper); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; padding: 10px 24px; text-align: center; }
+  .micro-bar a { color: var(--lime); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Diff-from-current callouts */
+  .legend-strip {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gray);
+    margin-bottom: 12px;
+  }
+  .legend-strip .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); margin-right: 6px; vertical-align: middle; }
+
+  /* Playbook hero-strip */
+  .playbook-hero {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (max-width: 900px) { .playbook-hero { grid-template-columns: 1fr; } }
+  .playbook-visual {
+    border-radius: var(--radius-l);
+    background: var(--charcoal);
+    padding: 28px;
+    color: var(--white);
+    position: relative; overflow: hidden;
+  }
+  .playbook-visual::after {
+    content: 'ILLUSTRATION · Monthly Playbook cover (editorial, muted tones)';
+    position: absolute; bottom: 20px; right: 24px;
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+  }
+  .playbook-visual img { border-radius: 8px; }
+
+  /* FAQ */
+  details.faq {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-m);
+    padding: 22px 28px;
+    margin-bottom: 12px;
+  }
+  details.faq[open] { border-color: var(--ink); }
+  details.faq summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--f-display); font-weight: 700; font-size: 18px;
+    letter-spacing: -0.01em; color: var(--ink);
+  }
+  details.faq summary::after {
+    content: '+'; font-family: var(--f-mono); font-weight: 500;
+    color: var(--orange); font-size: 22px;
+  }
+  details.faq[open] summary::after { content: '−'; }
+  details.faq p { margin: 16px 0 0; color: #3A3A3A; font-size: 14.5px; line-height: 1.6; }
+
+  /* CTA banner */
+  .cta-banner {
+    background: var(--lime);
+    padding: var(--s-9) 0;
+    text-align: center;
+  }
+  .cta-banner h2 { font-size: clamp(40px, 5.5vw, 72px); max-width: 20ch; margin: 0 auto 24px; }
+  .cta-banner p { color: var(--charcoal); max-width: 52ch; margin: 0 auto 28px; }
+
+  /* Dashboard illustration */
+  .dashboard-illus {
+    background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
+    color: var(--white); padding: 32px; border-radius: var(--radius-l);
+    aspect-ratio: 16/10;
+    position: relative; overflow: hidden;
+  }
+  .dashboard-illus::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, transparent 0 48px, rgba(255,255,255,0.04) 48px 49px, transparent 49px) repeat-x,
+      linear-gradient(to bottom, transparent 0 48px, rgba(255,255,255,0.04) 48px 49px, transparent 49px) repeat-y;
+    background-size: 48px 48px;
+    opacity: 0.6;
+  }
+  .dashboard-illus h3 { color: var(--lime); font-size: 16px; font-family: var(--f-mono); letter-spacing: 0.2em; text-transform: uppercase; margin: 0 0 24px; position: relative; z-index: 1;}
+  .dashboard-signals {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    position: relative; z-index: 1;
+  }
+  .signal-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 16px;
+    border-radius: 10px;
+  }
+  .signal-card .label { font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); }
+  .signal-card .val { font-family: var(--f-display); font-weight: 800; font-size: 28px; letter-spacing: -0.02em; color: var(--white); margin-top: 6px; }
+  .signal-card .trend { font-size: 11px; color: #9aff9a; margin-top: 4px; }
+  .sig-bar {
+    height: 10px; border-radius: 5px; background: rgba(255,255,255,0.08);
+    margin-top: 12px; overflow: hidden;
+  }
+  .sig-bar span { display: block; height: 100%; background: var(--lime); border-radius: 5px; }
+  .compound-score {
+    margin-top: 20px;
+    display: flex; align-items: center; gap: 18px;
+    padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08);
+    position: relative; z-index: 1;
+  }
+  .compound-score .val {
+    font-family: var(--f-display); font-weight: 900; font-size: 48px;
+    color: var(--lime); letter-spacing: -0.02em;
+  }
+  .compound-score .label {
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45);
+  }
+</style>
+</head>
+<body>
+
+<div class="micro-bar">
+  Mockup B · Full narrative refresh · ≈ 3–5 days dev time · <strong style="color: var(--lime);">recommended</strong> ·
+  <a href="../../index.html">← back to comparison</a>
+</div>
+
+<!-- TOPBAR ============================================================ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="logo">
+      <img src="../../assets/logo-charcoal.png" alt="GritFuel">
+    </a>
+    <nav>
+      <a href="#what">What it is</a>
+      <a href="#how">How it works</a>
+      <a href="#tools">The system</a>
+      <a href="#plans">Plans</a>
+      <a href="#proof">Proof</a>
+    </nav>
+    <a href="#cta" class="cta">Book discovery →</a>
+  </div>
+</header>
+
+<!-- HERO ============================================================= -->
+<section class="hero-wrap">
+  <div class="hero-video">
+    <div class="placeholder-car">grit</div>
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">Human thinking. Relentless execution.</span>
+    <h1>The growth operating system for founders ready to scale.</h1>
+    <p class="lead">Strategy, execution and compounding intelligence in one monthly subscription. Senior operators run the cadence. A shared Dashboard shows what's moving. Credits unlock the work.</p>
+    <div style="display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap;">
+      <a href="#cta" class="btn primary">Book a discovery call →</a>
+      <a href="#how" class="btn ghost">See how it works</a>
+    </div>
+    <div style="margin-top: 64px; display: flex; gap: 36px; flex-wrap: wrap; font-family: var(--f-mono); font-size: 11px; color: rgba(255,255,255,0.6); letter-spacing: 0.2em; text-transform: uppercase;">
+      <span><span style="color: var(--lime);">●</span> Cohort 1 beta · NL · ZA · EU</span>
+      <span>Founder-led · Senior operators only</span>
+      <span>One contract · One score · One direction</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT IS (differentiator) ====================================== -->
+<section class="band paper" id="what">
+  <div class="container n">
+    <div class="section-head">
+      <span class="eyebrow">What GritFuel is</span>
+      <h2>Not an agency.<br>Not a hire.<br><span class="accent-lime">An operating system.</span></h2>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; margin-top: 40px;">
+      <div>
+        <h4 style="color: var(--orange);">Not an agency</h4>
+        <p>Agencies ship work. We ship a system — that happens to ship work. The Dashboard, the Playbook and the Strategist survive turnover, politics and growth.</p>
+      </div>
+      <div>
+        <h4 style="color: var(--orange);">Not a hire</h4>
+        <p>You don't buy headcount, you buy operating rhythm. Senior operators rotate in against your month. The cadence is the product.</p>
+      </div>
+      <div>
+        <h4 style="color: var(--orange);">The first Growth OS</h4>
+        <p>Compound score, Escalation Router, Credit Allocation, ALC Menu. All in one subscription — strategy, execution and intelligence on the same page.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS — MONTHLY PLAYBOOK =================================== -->
+<section class="band white" id="how">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">How it works</span>
+      <h2>One monthly rhythm.<br>Signed off at the start of every cycle.</h2>
+      <p class="lead" style="max-width: 60ch;">The Monthly Playbook is the commitment we make to you — <strong>at the start of the month, not the end</strong>. Three plays. Clear outcomes. A single owner on our side. Then we run.</p>
+    </div>
+
+    <div class="playbook-hero">
+      <div class="playbook-visual">
+        <img src="../../../partner-briefing/assets/playbook-preview.jpg" alt="GritFuel Monthly Playbook cover" style="width: 100%; height: auto;">
+      </div>
+      <div>
+        <div style="display: grid; gap: 20px;">
+          <div style="padding-left: 20px; border-left: 3px solid var(--orange);">
+            <div style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--gray); text-transform: uppercase; margin-bottom: 6px;">Day 1 · Playbook drop</div>
+            <h3 style="font-size: 22px;">Three plays, one page, sign it off.</h3>
+            <p style="font-size: 14.5px; margin: 0;">No hundred-slide deck. The Playbook is a one-page commitment: what we're running, why it moves the Compound Score, what we'll learn.</p>
+          </div>
+          <div style="padding-left: 20px; border-left: 3px solid var(--lime);">
+            <div style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--gray); text-transform: uppercase; margin-bottom: 6px;">Week-by-week · Execution loop</div>
+            <h3 style="font-size: 22px;">Ship. Measure. Escalate what needs judgement.</h3>
+            <p style="font-size: 14.5px; margin: 0;">Credits turn into deliverables from the ALC Menu. The Escalation Router pulls senior eyes in when speed needs judgement — not noise.</p>
+          </div>
+          <div style="padding-left: 20px; border-left: 3px solid var(--charcoal);">
+            <div style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--gray); text-transform: uppercase; margin-bottom: 6px;">Day 28 · Score in, next Playbook out</div>
+            <h3 style="font-size: 22px;">The month compounds.</h3>
+            <p style="font-size: 14.5px; margin: 0;">Compound Score updates. Winners roll into next month's plays. Losers get archived with the reason why. The story gets smarter.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD HERO ILLUSTRATION ======================================= -->
+<section class="band ink">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">The Dashboard</span>
+      <h2>Your growth, on the same page.</h2>
+      <p class="lead" style="max-width: 60ch; color: #CFCFCF;">Four compounding signals feed one Compound Score. Everyone on your side and ours is looking at the same numbers, the same month, the same direction.</p>
+    </div>
+    <div class="dashboard-illus">
+      <h3>GROWTH DASHBOARD · COHORT 1</h3>
+      <div class="dashboard-signals">
+        <div class="signal-card"><div class="label">Demand signal</div><div class="val">72</div><div class="trend">▲ +8 MoM</div><div class="sig-bar"><span style="width: 72%;"></span></div></div>
+        <div class="signal-card"><div class="label">Conversion signal</div><div class="val">81</div><div class="trend">▲ +4 MoM</div><div class="sig-bar"><span style="width: 81%;"></span></div></div>
+        <div class="signal-card"><div class="label">Retention signal</div><div class="val">64</div><div class="trend">▲ +12 MoM</div><div class="sig-bar"><span style="width: 64%;"></span></div></div>
+        <div class="signal-card"><div class="label">Brand signal</div><div class="val">58</div><div class="trend">▲ +5 MoM</div><div class="sig-bar"><span style="width: 58%;"></span></div></div>
+      </div>
+      <div class="compound-score">
+        <div class="val">68.7</div>
+        <div>
+          <div style="font-family: var(--f-display); font-weight: 800; font-size: 18px; color: var(--white);">COMPOUND SCORE</div>
+          <div class="label">April 2026 · ▲ +7.2 vs March</div>
+        </div>
+      </div>
+    </div>
+    <p style="color: #888; font-size: 13px; margin-top: 18px; font-family: var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase;">// ILLUSTRATION · live Dashboard spec is engineered around these four signals</p>
+  </div>
+</section>
+
+<!-- 5 TOOLS GRID ====================================================== -->
+<section class="band paper" id="tools">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">The system</span>
+      <h2>Five tools.<br>One cadence.</h2>
+      <p class="lead" style="max-width: 62ch;">Each client gets the same five tools from day one. They are the operating surface — where the work is shaped, shipped, measured, and compounded.</p>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool">
+        <img src="../../assets/icons/signal.svg" alt="">
+        <div class="tool-name">01 · Intake</div>
+        <div class="tool-title">Onboarding Intake</div>
+        <p>Structured scoping session that sets the first Playbook and the shape of the credit pool.</p>
+      </div>
+      <div class="tool">
+        <img src="../../assets/icons/system.svg" alt="">
+        <div class="tool-name">02 · Dashboard</div>
+        <div class="tool-title">Growth Dashboard</div>
+        <p>Four signals, one Compound Score. The single source of truth for every meeting.</p>
+      </div>
+      <div class="tool">
+        <img src="../../assets/icons/loop.svg" alt="">
+        <div class="tool-name">03 · Engine</div>
+        <div class="tool-title">Compounding Engine</div>
+        <p>Turns last month's wins into next month's plays. Losers get archived with their reason.</p>
+      </div>
+      <div class="tool">
+        <img src="../../assets/icons/control.svg" alt="">
+        <div class="tool-name">04 · Router</div>
+        <div class="tool-title">Escalation Router</div>
+        <p>Pulls senior judgement in when it's needed, without blocking the day-to-day work.</p>
+      </div>
+      <div class="tool">
+        <img src="../../assets/icons/execution.svg" alt="">
+        <div class="tool-name">05 · Credits</div>
+        <div class="tool-title">Credit Allocation</div>
+        <p>Your monthly credit pool, resolved against a 153-item ALC Menu with full margin transparency.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGIST / HUMAN FACE ========================================== -->
+<section class="band white">
+  <div class="container">
+    <div class="face-block">
+      <div class="face-visual">
+        <div class="quote">
+          "The OS does the carrying. The Strategist does the judging."
+          <span class="by">— How GritFuel is designed to work</span>
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow">The human layer</span>
+        <h2>Your Strategist is the judgement layer on top of the system.</h2>
+        <p class="lead">A senior operator who owns the client relationship, picks the plays, writes the Playbook narrative, and is accountable for the Compound Score moving.</p>
+        <p>The OS handles the cadence, the data, the routing and the credits. The Strategist handles the calls the system can't make — which play to prioritise, when to escalate, how to frame a win, when to kill a loser.</p>
+        <p style="color: var(--gray); font-size: 14px;">On Core plans: 1 Strategist · Growth: CMO oversight + 1 Strategist · Performance: CMO presence + 2 Strategists.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS: TWO-STREAM ================================================ -->
+<section class="band paper" id="plans">
+  <div class="container">
+    <div class="section-head" style="margin: 0 auto var(--s-6); text-align: center;">
+      <span class="eyebrow">Plans</span>
+      <h2>Two streams.<br>One contract.</h2>
+      <p class="lead" style="color: var(--gray); max-width: 58ch; margin: 16px auto 0;">Every plan combines a fixed operating subscription (the Dashboard, Playbook, Strategist, cadence) with a credit pool you spend from the ALC Menu — 153 services, transparent margin, no mystery retainer.</p>
+    </div>
+
+    <div class="plan-grid">
+      <div class="plan">
+        <span class="plan-name">Core</span>
+        <h3 class="plan-headline">Clarity.<br>Traction.<br>Control.</h3>
+        <p class="plan-sub">Disciplined focus. Month-on-month commercial lift.</p>
+        <div class="stream">
+          <span class="stream-label">Subscription · the system</span>
+          <div class="plan-price">€3,500<span class="unit">/mo</span></div>
+          <p class="plan-price-desc">Dashboard · Playbook · Strategist · Cadence</p>
+        </div>
+        <div class="stream">
+          <span class="stream-label">Credits · the work</span>
+          <div class="plan-price">€5,000<span class="unit">/mo</span></div>
+          <p class="plan-price-desc">Pool drawn from the ALC Menu.</p>
+        </div>
+        <ul>
+          <li>1 Strategist · rotating specialist</li>
+          <li>Weekly rhythm · monthly Playbook sign-off</li>
+          <li>2 campaigns in motion</li>
+        </ul>
+        <div class="plan-tagline">Establish commercial momentum with precision.</div>
+      </div>
+
+      <div class="plan featured">
+        <span class="plan-name">Growth · most common</span>
+        <h3 class="plan-headline">Repeatability.<br>Optimisation.<br>Expansion.</h3>
+        <p class="plan-sub">For teams building a scalable engine.</p>
+        <div class="stream">
+          <span class="stream-label">Subscription</span>
+          <div class="plan-price">€5,250<span class="unit">/mo</span></div>
+          <p class="plan-price-desc">+ CMO oversight, weekly cadence</p>
+        </div>
+        <div class="stream">
+          <span class="stream-label">Credits</span>
+          <div class="plan-price">€8,000<span class="unit">/mo</span></div>
+          <p class="plan-price-desc">Deeper pool · campaigns, content, performance.</p>
+        </div>
+        <ul>
+          <li>Fractional CMO + Strategist</li>
+          <li>Rolling test-and-learn backlog</li>
+          <li>4 campaigns in motion</li>
+        </ul>
+        <div class="plan-tagline">Turn traction into predictable performance.</div>
+      </div>
+
+      <div class="plan">
+        <span class="plan-name">Performance</span>
+        <h3 class="plan-headline">Acceleration.<br>Market expansion.<br>Efficiency at scale.</h3>
+        <p class="plan-sub">Scale revenue with full operating-system depth.</p>
+        <div class="stream">
+          <span class="stream-label">Subscription</span>
+          <div class="plan-price">€8,000<span class="unit">/mo</span></div>
+          <p class="plan-price-desc">Full CMO · 2 Strategists · custom cadence</p>
+        </div>
+        <div class="stream">
+          <span class="stream-label">Credits</span>
+          <div class="plan-price">€12,000<span class="unit">/mo+</span></div>
+          <p class="plan-price-desc">Sized to growth targets. 1-month roll-over.</p>
+        </div>
+        <ul>
+          <li>Multi-market, multi-channel orchestration</li>
+          <li>24h escalation-to-response</li>
+          <li>Unlimited campaigns in motion</li>
+        </ul>
+        <div class="plan-tagline">Scale revenue with control and confidence.</div>
+      </div>
+    </div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--gray); font-size: 13.5px;">
+      All plans include the Dashboard, Playbook, Strategist, Escalation Router.
+      · <a href="#" style="color: var(--orange); border-bottom: 1px dashed; padding-bottom: 1px;">See the ALC Menu (153 services)</a>
+    </p>
+  </div>
+</section>
+
+<!-- PROOF =========================================================== -->
+<section class="band white" id="proof">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Proof</span>
+      <h2>What compounds when<br>the system runs.</h2>
+    </div>
+    <div class="proof-strip">
+      <div class="proof-tile"><div class="metric">4.1×</div><div class="desc">Average uplift on tracked compounding signals in first 6 months</div></div>
+      <div class="proof-tile"><div class="metric">42%</div><div class="desc">Lower CPA when brand + performance move on the same cadence</div></div>
+      <div class="proof-tile"><div class="metric">≤ 24h</div><div class="desc">Escalation-to-response time across senior operators</div></div>
+      <div class="proof-tile"><div class="metric">1</div><div class="desc">Place the story lives. Dashboard · Playbook · Strategist.</div></div>
+    </div>
+
+    <div style="background: var(--gray-100); border-radius: var(--radius-l); padding: 48px; margin-top: 48px; display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center;">
+      <div style="width: 120px; height: 120px; border-radius: 50%; background: var(--charcoal); display: flex; align-items: center; justify-content: center; color: var(--lime); font-family: var(--f-display); font-weight: 900; font-size: 36px;">H</div>
+      <div>
+        <p style="font-family: var(--f-display); font-weight: 700; font-size: 24px; line-height: 1.35; letter-spacing: -0.01em; color: var(--ink); margin: 0 0 16px;">"The thing I didn't expect: by month three we stopped having 'marketing meetings'. We just opened the Dashboard. The conversation is about next month's Playbook, not last month's spend."</p>
+        <p style="font-size: 14px; color: var(--gray); margin: 0;">Helio — Founder, enterprise SaaS · Cohort 1 beta</p>
+        <p style="font-size: 12px; color: var(--gray); margin-top: 8px; font-family: var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase;">// Illustrative quote — replace with real beta testimonial post-May</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ ============================================================= -->
+<section class="band paper">
+  <div class="container n">
+    <div class="section-head">
+      <span class="eyebrow">Common questions</span>
+      <h2>What founders ask before<br>the first discovery call.</h2>
+    </div>
+
+    <details class="faq" open>
+      <summary>How is this different from hiring a fractional CMO?</summary>
+      <p>A fractional CMO is one person on your calendar. GritFuel is a system with a CMO inside it. The Dashboard, the Playbook, the Escalation Router and the credit pool all keep running even when a single person isn't. You buy operating rhythm — not headcount.</p>
+    </details>
+    <details class="faq">
+      <summary>What's the "credit pool" and how is pricing transparent?</summary>
+      <p>Your monthly plan is split into two streams: a fixed subscription for the operating system, and a credit pool for the actual work. Credits resolve against a 153-item ALC (Agency Line Card) Menu — every line has a price, a deliverable, and the margin we keep. You always see what a credit buys.</p>
+    </details>
+    <details class="faq">
+      <summary>What happens in the first 30 days?</summary>
+      <p>Day 1–5: Onboarding Intake + scoping. Day 5: first Playbook signed off. Day 5–28: execution loop — three plays running, credits turning into deliverables, the Escalation Router active. Day 28: Compound Score in, next Playbook out. Then the month compounds.</p>
+    </details>
+    <details class="faq">
+      <summary>What does "the Compound Score" actually measure?</summary>
+      <p>Four signals weighted to your business: Demand, Conversion, Retention, Brand. Each is scored 0–100 monthly. The Compound Score is the weighted composite. It is designed to reward moves that still pay you back in six months — not vanity spikes.</p>
+    </details>
+  </div>
+</section>
+
+<!-- CTA BANNER ===================================================== -->
+<section class="cta-banner" id="cta">
+  <div class="container n">
+    <h2>Growth that compounds.<br>Visibly.</h2>
+    <p class="lead">A 30-minute discovery call. We leave you with a scored read of your current growth engine and a preview of what the first Playbook would look like. No pitch deck. No follow-up sales cycle.</p>
+    <a href="#" class="btn dark">Book a discovery call →</a>
+  </div>
+</section>
+
+<!-- FOOTER ========================================================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-tag">Growth that compounds. Visibly.</div>
+        <p style="color: #888; font-size: 13.5px;">GritFuel OS — the first Growth Operating System.<br>Operated by GritFuel BV, registered in the Netherlands.</p>
+        <a href="#cta" class="btn dark" style="margin-top: 16px; border: 1px solid rgba(255,255,255,0.2);">Book a discovery call →</a>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Monthly Playbook</a></li>
+          <li><a href="#">ALC Menu (153)</a></li>
+          <li><a href="#">Compound Score</a></li>
+          <li><a href="#">Brand Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Team + Strategists</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@gritfuel.works">hello@gritfuel.works</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Imprint</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 GritFuel BV · gritfuel.works · Human thinking. Relentless execution.</span>
+      <span style="font-family: var(--f-mono); letter-spacing: 0.14em; text-transform: uppercase;">The growth operating system.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

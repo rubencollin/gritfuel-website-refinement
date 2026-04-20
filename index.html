@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>gritfuel.works refinement — mockup comparison</title>
+<link rel="stylesheet" href="assets/shared.css">
+<style>
+  body { background: var(--paper); }
+
+  .intro-hero {
+    background: var(--ink); color: var(--white);
+    padding: 96px 0 80px;
+    position: relative; overflow: hidden;
+  }
+  .intro-hero::after {
+    content: ''; position: absolute;
+    right: -10%; bottom: -40%;
+    width: 70%; aspect-ratio: 1;
+    background: url('assets/arrow-lime.png') center/contain no-repeat;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+  .intro-hero h1 { color: var(--white); max-width: 18ch; font-size: clamp(44px, 6vw, 84px); }
+  .intro-hero .lead { color: rgba(255,255,255,0.8); max-width: 66ch; font-size: 20px; }
+  .intro-hero .eyebrow { color: var(--lime); }
+
+  .quick-meta {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    margin-top: 48px; padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  @media (max-width: 900px) { .quick-meta { grid-template-columns: repeat(2, 1fr); } }
+  .quick-meta .l { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lime); }
+  .quick-meta .v { font-family: var(--f-display); font-weight: 700; font-size: 16px; color: var(--white); margin-top: 6px; letter-spacing: -0.01em; }
+
+  /* Comparison matrix */
+  .matrix {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-l);
+    overflow: hidden;
+    margin-top: 48px;
+  }
+  .matrix table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .matrix th, .matrix td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--gray-200); vertical-align: top; }
+  .matrix th { background: var(--gray-100); font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray); }
+  .matrix td:first-child { font-family: var(--f-display); font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+  .matrix td.y { color: var(--ink); }
+  .matrix td.dim { color: var(--gray); }
+  .matrix tr:last-child td { border-bottom: none; }
+  .matrix .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-family: var(--f-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
+  .matrix .pill.y { background: var(--lime); color: var(--ink); }
+  .matrix .pill.o { background: var(--orange); color: var(--white); }
+  .matrix .pill.g { background: var(--gray-200); color: var(--charcoal); }
+
+  /* Decision block */
+  .decision-block {
+    background: var(--lime);
+    color: var(--ink);
+    padding: 48px;
+    border-radius: var(--radius-l);
+    margin-top: 56px;
+    display: grid; grid-template-columns: 1fr 2fr; gap: 32px; align-items: start;
+  }
+  @media (max-width: 900px) { .decision-block { grid-template-columns: 1fr; } }
+  .decision-block h3 { color: var(--ink); font-size: 28px; margin: 0; }
+  .decision-block p { color: var(--charcoal); font-size: 15px; margin: 0 0 12px; line-height: 1.55; }
+
+  /* What changes callouts */
+  .changes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+  @media (max-width: 900px) { .changes-grid { grid-template-columns: 1fr 1fr; } }
+  .change-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-m); padding: 24px; }
+  .change-card .tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+  .change-card h4 { font-family: var(--f-display); font-weight: 800; font-size: 16px; letter-spacing: -0.01em; color: var(--ink); text-transform: none; margin-bottom: 6px; }
+  .change-card p { font-size: 13.5px; color: #3A3A3A; margin: 0; line-height: 1.5; }
+
+  .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+  @media (max-width: 900px) { .before-after { grid-template-columns: 1fr; } }
+  .ba-card { padding: 28px; border-radius: var(--radius-m); }
+  .ba-card.before { background: var(--gray-100); border: 1px solid var(--gray-200); }
+  .ba-card.after { background: var(--ink); color: var(--white); }
+  .ba-card.after h4 { color: var(--lime); }
+  .ba-card .ba-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 14px; }
+  .ba-card.before .ba-label { color: var(--gray); }
+  .ba-card.after .ba-label { color: var(--lime); }
+  .ba-card h4 { font-family: var(--f-display); font-weight: 800; font-size: 20px; letter-spacing: -0.01em; text-transform: none; line-height: 1.2; margin: 0 0 10px; }
+  .ba-card.before h4 { color: var(--charcoal); }
+  .ba-card p { font-size: 13.5px; margin: 0; line-height: 1.5; }
+  .ba-card.before p { color: #2A2A2A; }
+  .ba-card.after p { color: #CFCFCF; }
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="logo"><img src="assets/logo-charcoal.png" alt="GritFuel"></a>
+    <nav>
+      <a href="#mockups">Mockups</a>
+      <a href="#compare">Compare</a>
+      <a href="#copy">Copy changes</a>
+      <a href="#decision">Decision</a>
+    </nav>
+    <a href="#mockups" class="cta">Jump to mockups →</a>
+  </div>
+</header>
+
+<!-- Intro hero ==================================================== -->
+<section class="intro-hero">
+  <div class="container">
+    <span class="eyebrow">Website refinement · April 2026</span>
+    <h1>gritfuel.works, tightened against the new positioning.</h1>
+    <p class="lead">Three directions for a minimal, brand-aligned refresh of the live site. Same spine: the race-car hero, the full-width layout, the plans + proof structure. Different dials on copy boldness, visual weight, and scope of change.</p>
+
+    <div class="quick-meta">
+      <div><div class="l">Constraints</div><div class="v">Keep race-car video · full width</div></div>
+      <div><div class="l">Inputs</div><div class="v">Partner brief · Brand Guide v2</div></div>
+      <div><div class="l">Posture</div><div class="v">Minimal dev time</div></div>
+      <div><div class="l">Decision window</div><div class="v">Before 29 April go-live</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S NEW SINCE CURRENT ==================================== -->
+<section class="band paper" id="copy">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What the partner brief changes for the website</span>
+      <h2>Four edits the new positioning forces.</h2>
+      <p class="lead" style="max-width: 62ch;">The current site already says "growth operating partner", "Monthly Growth System", "embedded senior operators". Most of that survives. What the partner brief locks in — and what the Brand Guide v2 now enforces — is the four edits below.</p>
+    </div>
+
+    <div class="changes-grid">
+      <div class="change-card">
+        <div class="tag">01 · Category</div>
+        <h4>Growth Operating System, not Growth Operating Partner.</h4>
+        <p>"Partner" frames us as a relationship type. "Operating System" frames us as a category of one. The hero, nav, and H1s all shift.</p>
+      </div>
+      <div class="change-card">
+        <div class="tag">02 · Plans</div>
+        <h4>Two streams, one contract.</h4>
+        <p>Current site implies one retainer. New plans show subscription (fixed) + credits (the work, via ALC Menu) as two visible streams.</p>
+      </div>
+      <div class="change-card">
+        <div class="tag">03 · Playbook</div>
+        <h4>Start-of-cycle commitment, not end-of-cycle report.</h4>
+        <p>Reframes the monthly ritual: Day 1 sign-off, Day 28 Compound Score. The system learns your numbers between.</p>
+      </div>
+      <div class="change-card">
+        <div class="tag">04 · Strategist</div>
+        <h4>Generic Strategist, not Brand Strategist.</h4>
+        <p>Named as the judgement layer on top of the system. Human face of the OS. Holds the client relationship across plans.</p>
+      </div>
+    </div>
+
+    <!-- Before / after copy -->
+    <h3 style="margin-top: 72px;">Hero copy · current vs proposed</h3>
+    <div class="before-after">
+      <div class="ba-card before">
+        <div class="ba-label">Current (gritfuel.works)</div>
+        <h4>"A growth operating partner built to embed senior operators, align monthly priorities, and compound performance over time."</h4>
+        <p>Correct but buried. Reads like a consultancy one-pager. No category claim, no product.</p>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-label">Proposed</div>
+        <h4>"The growth operating system for founders ready to scale."</h4>
+        <p>Category claim up-front. Specific buyer. Pairs with the umbrella line "Human thinking. Relentless execution." as eyebrow. Lead line does the work the old H1 failed to do.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 48px;">Plans block · current vs proposed</h3>
+    <div class="before-after">
+      <div class="ba-card before">
+        <div class="ba-label">Current</div>
+        <h4>Single all-in monthly price per tier.</h4>
+        <p>Implies retainer. Can't show what the money actually buys. Credits &amp; ALC Menu are invisible to buyers.</p>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-label">Proposed</div>
+        <h4>Two visible streams: Subscription (€3,500–€8,000) + Credits (€5,000–€12,000+).</h4>
+        <p>Shows the model. The subscription buys the OS (Dashboard, Playbook, Strategist, cadence). Credits buy the deliverables from the ALC Menu. "No mystery retainer."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOCKUPS CARDS ================================================ -->
+<section class="band white" id="mockups">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">The three directions</span>
+      <h2>Three mockups. Same positioning.<br>Different dials on boldness.</h2>
+      <p class="lead" style="max-width: 62ch;">All three preserve the race-car hero video, the full-width layout, and the two-stream plans. They differ on copy, scope of change from the current site, and visual confidence.</p>
+    </div>
+
+    <div class="mock-grid">
+      <a href="mockups/a-minimal/index.html" class="mock-card" target="_blank">
+        <div class="thumb" style="background: linear-gradient(135deg, #3C3C3C 0%, #1A1A1A 100%);">
+          <div class="thumb-title">A</div>
+          <div class="thumb-subtitle">// minimal</div>
+        </div>
+        <div class="body">
+          <h3>Minimal refinement</h3>
+          <p>Closest to today. New hero, new plans block, everything else cosmetic. Smallest risk, smallest shift.</p>
+          <div class="tags">
+            <span class="tag">1–2 days dev</span>
+            <span class="tag">Lowest risk</span>
+            <span class="tag">Hero + plans only</span>
+          </div>
+          <span class="open">Open mockup →</span>
+        </div>
+      </a>
+
+      <a href="mockups/b-full/index.html" class="mock-card" target="_blank">
+        <div class="thumb" style="background: linear-gradient(135deg, #1A1A1A 0%, #2a2a2a 50%, #3C3C3C 100%);">
+          <div class="thumb-title">B</div>
+          <div class="thumb-subtitle">// full refresh &middot; recommended</div>
+        </div>
+        <div class="body">
+          <h3>Full narrative refresh</h3>
+          <p>Hero + differentiator + Playbook + Dashboard + 5 tools + Strategist + plans + proof + FAQ + CTA. The whole positioning laid out.</p>
+          <div class="tags">
+            <span class="tag">3–5 days dev</span>
+            <span class="tag">Recommended</span>
+            <span class="tag">Full page</span>
+          </div>
+          <span class="open">Open mockup →</span>
+        </div>
+      </a>
+
+      <a href="mockups/c-editorial/index.html" class="mock-card" target="_blank">
+        <div class="thumb" style="background: linear-gradient(135deg, #1A1A1A 0%, #3C3C3C 50%, #DEE450 130%);">
+          <div class="thumb-title" style="color: var(--lime);">C</div>
+          <div class="thumb-subtitle">// editorial / bolder</div>
+        </div>
+        <div class="body">
+          <h3>Editorial / bolder</h3>
+          <p>Same content as B, but bigger type, more whitespace, alternating dark/lime bands. For comparison — a confidence stretch, not a requirement.</p>
+          <div class="tags">
+            <span class="tag">4–6 days dev</span>
+            <span class="tag">Boldest</span>
+            <span class="tag">Dark-first</span>
+          </div>
+          <span class="open">Open mockup →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE MATRIX ================================================ -->
+<section class="band paper" id="compare">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Feature-by-feature</span>
+      <h2>Side-by-side matrix.</h2>
+    </div>
+    <div class="matrix">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 30%;">Element</th>
+            <th>A · Minimal</th>
+            <th>B · Full refresh</th>
+            <th>C · Editorial</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Race-car hero video (full width)</td>
+            <td class="y"><span class="pill y">Kept</span></td>
+            <td class="y"><span class="pill y">Kept</span></td>
+            <td class="y"><span class="pill y">Kept · larger</span></td>
+          </tr>
+          <tr>
+            <td>Hero H1</td>
+            <td>"Growth operating system for founders ready to scale."</td>
+            <td>Same + longer lead + meta row</td>
+            <td>"The growth operating system." (ultra-tight + meta grid)</td>
+          </tr>
+          <tr>
+            <td>"Not an agency. Not a hire." block</td>
+            <td class="dim"><span class="pill g">Skipped</span> (one-liner only)</td>
+            <td class="y"><span class="pill y">3-column block</span></td>
+            <td class="y"><span class="pill y">Full-width statement</span></td>
+          </tr>
+          <tr>
+            <td>Monthly Playbook (start-of-cycle)</td>
+            <td class="dim"><span class="pill g">Absent</span></td>
+            <td class="y"><span class="pill y">Three-stage rail + preview image</span></td>
+            <td class="y"><span class="pill y">Editorial step rows (01 / 02 / 03)</span></td>
+          </tr>
+          <tr>
+            <td>Growth Dashboard illustration</td>
+            <td class="dim"><span class="pill g">Absent</span></td>
+            <td class="y"><span class="pill y">Dark band, 4 signals + score</span></td>
+            <td class="y"><span class="pill o">Lime band, aspirational</span></td>
+          </tr>
+          <tr>
+            <td>5 tools</td>
+            <td class="dim"><span class="pill g">Absent</span></td>
+            <td class="y"><span class="pill y">5-column tile grid</span></td>
+            <td class="y"><span class="pill y">Editorial row list w/ lime hover</span></td>
+          </tr>
+          <tr>
+            <td>Strategist (human face)</td>
+            <td class="dim"><span class="pill g">Absent</span></td>
+            <td class="y"><span class="pill y">Photo block + quote</span></td>
+            <td class="y"><span class="pill y">Charcoal band, larger portrait</span></td>
+          </tr>
+          <tr>
+            <td>Plans: two-stream (subscription + credits)</td>
+            <td class="y"><span class="pill y">3 cards, featured middle</span></td>
+            <td class="y"><span class="pill y">3 cards, featured middle</span></td>
+            <td class="y"><span class="pill o">Single unified row, lime feature</span></td>
+          </tr>
+          <tr>
+            <td>FAQ</td>
+            <td class="dim"><span class="pill g">Skipped</span></td>
+            <td class="y"><span class="pill y">4 common questions</span></td>
+            <td class="dim"><span class="pill g">Rolled into CTA</span></td>
+          </tr>
+          <tr>
+            <td>Proof strip (4 metrics)</td>
+            <td class="y"><span class="pill y">Included</span></td>
+            <td class="y"><span class="pill y">Included + testimonial quote</span></td>
+            <td class="dim"><span class="pill g">Inline in Dashboard band</span></td>
+          </tr>
+          <tr>
+            <td>Default visual temperature</td>
+            <td>Paper / charcoal — current site feel</td>
+            <td>Paper &times; dark bands alternating</td>
+            <td>Dark-first. Lime + editorial whitespace.</td>
+          </tr>
+          <tr>
+            <td>Approx. dev effort</td>
+            <td>1–2 days</td>
+            <td>3–5 days</td>
+            <td>4–6 days</td>
+          </tr>
+          <tr>
+            <td>Recommended for</td>
+            <td class="dim">If 29 Apr go-live is inflexible</td>
+            <td class="y">Default — biggest positioning payoff per dev day</td>
+            <td class="dim">If brand confidence is the north star</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMMENDATION ================================================ -->
+<section class="band white" id="decision">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">My read</span>
+      <h2>Go with B.<br>Keep A as the fallback.<br>Steal two sections from C.</h2>
+    </div>
+    <p class="lead" style="max-width: 64ch;"><strong>B is the best-payoff-per-day option.</strong> It lands all four positioning shifts (category, plans, playbook, strategist) with a structure buyers can skim in 30 seconds. A is too thin — it solves the plans problem but leaves the Growth OS story invisible. C is a brand exercise more than a site exercise; for a <em>minimal refinement</em>, it's over-scope.</p>
+
+    <div class="decision-block">
+      <div>
+        <h3>Next steps</h3>
+      </div>
+      <div>
+        <p><strong>1. Pick a direction.</strong> If we hold the 29 April go-live, A is the safe play. If we can shift go-live to mid-May, B is the right call. Decision needed this week.</p>
+        <p><strong>2. Source the imagery.</strong> Two illustrations from B/C have no source yet: the Monthly Playbook cover (we have the real file — just needs art direction) and the strategist portrait. Both are blockers on final visual polish.</p>
+        <p><strong>3. Validate with partners.</strong> Drop this comparison link into the WhatsApp thread with Tlali/Micha/Kim. Ask for A/B/C votes — not copy edits yet.</p>
+        <p style="margin-bottom: 0;"><strong>4. Steal from C.</strong> Regardless of A vs B, the editorial step-rail (01/02/03 large numerals) and the lime Dashboard band from C are stronger than B's versions and should be lifted.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN MOCKUPS FOOTER ======================================== -->
+<footer class="site-footer" style="padding: 64px 0 32px;">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; padding-bottom: 32px; border-bottom: 1px solid #2A2A2A;">
+      <a href="mockups/a-minimal/index.html" target="_blank" style="display: block; padding: 24px; background: #222; border-radius: 12px; color: var(--white);">
+        <div style="font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; color: var(--lime); text-transform: uppercase;">A · Minimal</div>
+        <div style="font-family: var(--f-display); font-weight: 800; font-size: 22px; margin-top: 6px; color: var(--white);">Open mockup A →</div>
+      </a>
+      <a href="mockups/b-full/index.html" target="_blank" style="display: block; padding: 24px; background: var(--lime); border-radius: 12px; color: var(--ink);">
+        <div style="font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; color: var(--orange); text-transform: uppercase;">B · Recommended</div>
+        <div style="font-family: var(--f-display); font-weight: 800; font-size: 22px; margin-top: 6px; color: var(--ink);">Open mockup B →</div>
+      </a>
+      <a href="mockups/c-editorial/index.html" target="_blank" style="display: block; padding: 24px; background: #222; border-radius: 12px; color: var(--white);">
+        <div style="font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; color: var(--lime); text-transform: uppercase;">C · Editorial</div>
+        <div style="font-family: var(--f-display); font-weight: 800; font-size: 22px; margin-top: 6px; color: var(--white);">Open mockup C →</div>
+      </a>
+    </div>
+    <div class="footer-bottom" style="margin-top: 24px;">
+      <span>Website refinement · April 2026 · gritfuel.works v2.1</span>
+      <span style="font-family: var(--f-mono); letter-spacing: 0.14em; text-transform: uppercase;">Mockups · Ruben + Claude</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
